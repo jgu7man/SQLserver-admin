@@ -1,0 +1,24 @@
+<table class="bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of usuarios">
+            <td> {{item.UserId}} </td>
+            <td> {{item.UserName}} </td>
+            <td> {{item.FirstName}} </td>
+            <td> {{item.LastName}} </td>
+            <td class="opciones">
+                <i class="fas fa-eye azul-text  "></i>
+                <i class="fas fa-edit verde-text  "></i>
+                <i class="fas fa-trash rojo-text  "></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

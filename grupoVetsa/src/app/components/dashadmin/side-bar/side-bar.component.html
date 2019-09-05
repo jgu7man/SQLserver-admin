@@ -1,0 +1,3 @@
+<ul>
+    <li class="sideBar-item" *ngFor="let item of lista" [routerLink]="['./'+ page +'/'+item.key]" routerLinkActive="router-link-active"> {{item.name}} </li>
+</ul>

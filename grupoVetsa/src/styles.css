@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* FORMULARIOS */
+
+input:not(.browser-default):focus {
+    border-bottom: 1px solid #327BB7 !important;
+    box-shadow: 0 1px 0 0 #327BB7 !important;
+}
+
+input:not(.browser-default):focus:not([readonly])+label {
+    color: #327BB7 !important;
+}
+
+
+/* TABLAS */
+
+.opciones {
+    display: flex;
+    opacity: 0;
+    transition: all .3s
+}
+
+tr:hover .opciones {
+    opacity: 1;
+}
+
+.opciones i {
+    width: 33%
+}
+
+
+/* COLORES */
+
+.azul {
+    background: #327BB7
+}
+
+.verde {
+    background: #5BB85B;
+}
+
+.rojo {
+    background: #D95350
+}
+
+.azul-text {
+    color: #327BB7
+}
+
+.verde-text {
+    color: #5BB85B;
+}
+
+.rojo-text {
+    color: #D95350
+}

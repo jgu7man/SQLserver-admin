@@ -1,0 +1,6 @@
+<div [ngClass]="alerta.tipo" id="alerta">
+    <p>
+        {{alerta.mensaje}}
+        <i class="fas fa-times white-text" *ngIf="alerta.mensaje != ''" (click)="close()"></i>
+    </p>
+</div>

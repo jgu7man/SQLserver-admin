@@ -1,0 +1,25 @@
+<form action="#" method="post" onsubmit="return false" #usuarioForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="UserName" id="UserName" [(ngModel)]="usuario.UserName" #UserName="ngModel" required>
+            <label for="UserName">Nombre de usuario</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="Password" id="Password" [(ngModel)]="usuario.Password" #Password="ngModel" required>
+            <label for="Password">Constraseña</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="FirstName" id="FirstName" [(ngModel)]="usuario.FirstName" #FirstName="ngModel" required>
+            <label for="FirstName">Nombre</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" name="LastName" id="LastName" [(ngModel)]="usuario.LastName" #LastName="ngModel" required>
+            <label for="LastName">Apellido</label>
+        </div>
+        <div class="col s12 center">
+            <button [disabled]="!usuarioForm.form.valid" class="btn light-blue darken-4" type="submit">
+                              GUARDAR
+                            </button>
+        </div>
+    </div>
+</form>

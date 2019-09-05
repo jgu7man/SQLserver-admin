@@ -1,0 +1,18 @@
+.rowLogin {
+    min-height: 100vh;
+}
+
+nav {
+    text-align: center
+}
+
+h5 {
+    width: 100%;
+}
+
+.login-box {
+    max-width: 350px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
+}

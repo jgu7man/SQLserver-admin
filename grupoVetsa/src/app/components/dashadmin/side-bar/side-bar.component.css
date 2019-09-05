@@ -1,0 +1,10 @@
+.sideBar-item {
+    padding: .8em;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.sideBar-item:hover {
+    background: #ccc;
+    font-weight: 900;
+}

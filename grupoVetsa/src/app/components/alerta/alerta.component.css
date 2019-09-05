@@ -1,0 +1,29 @@
+#alerta {
+    border-radius: .5em;
+    box-shadow: 2px 2px 3px #000;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 0;
+    transition: all .3s ease-in;
+    line-height: 1;
+    padding: 0 1em;
+    margin: 1em 0;
+}
+
+.warning {
+    background: #D95350;
+    height: 3em !important;
+}
+
+.success {
+    background: #5BB85B;
+    height: 3em !important;
+}
+
+.normal {
+    background: #327BB7;
+    height: 3em !important;
+}
