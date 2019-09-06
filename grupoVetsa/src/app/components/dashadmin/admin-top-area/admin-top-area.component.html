@@ -7,14 +7,56 @@
     </div>
     <div class="nav-content">
         <ul class="tabs tabs-transparent">
-            <li class="tab">
-                <a [routerLink]="['./mantenimiento']" routerLinkActive="active">
-              Mantenimiento
-              </a>
+            <li class="tab" (click)="mantMenu()">
+                <a>Mantenimiento</a>
             </li>
-            <li class="tab">
-                <a [routerLink]="['./reportes']" routerLinkActive="active">Reportes</a>
+            <li class="tab" (click)="reportMenu()">
+                <a>Reportes</a>
             </li>
         </ul>
     </div>
 </nav>
+
+<div class="container" id="mant-menu" (mouseleave)="mantMenu()">
+    <div class="row">
+        <div class="col s4">
+            <ul class="collection">
+                <li class="collection-item">Seguridad</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Usuario']" routerLinkActive="active" (click)="closeMenu()">Usuario</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Rol']" routerLinkActive="active" (click)="closeMenu()">Roles</li>
+                <li class="collection-item">Privilegio</li>
+            </ul>
+        </div>
+        <div class="col s4">
+            <ul class="collection">
+                <li class="collection-item" [routerLink]="['mantenimiento/Cliente']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Clientes</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Proveedor']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Proveedores</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Pais']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Pais</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/GrupoPersona']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Grupo Persona</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/LineaProducto']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Linea Producto</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Segmento']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Segmento</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/TipoFiscal']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Tipo Fiscal</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Categoria']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Categorias</li>
+                <li class="collection-item" [routerLink]="['mantenimiento/Documento']" routerLinkActive="active" (click)="closeMenu()">Mantenimiento Documento</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="report-menu" (mouseleave)="reportMenu()">
+    <div class="row">
+        <div class="col s4">
+            <ul class="collection">
+                <li class="collection-item">Reporte Clientes</li>
+                <li class="collection-item">Reporte Proveedores</li>
+                <li class="collection-item">Reporte Pais</li>
+                <li class="collection-item">Reporte Grupo Persona</li>
+                <li class="collection-item">Reporte Linea Producto</li>
+                <li class="collection-item">Reporte Segmento</li>
+                <li class="collection-item">Reporte Tipo Fiscal</li>
+                <li class="collection-item">Reporte Categorias</li>
+                <li class="collection-item">Reporte Documento</li>
+            </ul>
+        </div>
+    </div>
+</div>

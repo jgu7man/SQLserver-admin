@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col s10">
-            <h5>Agregar {{ruta}} </h5>
+            <h5>Agregar {{tabla.name}} </h5>
         </div>
         <div class="col s2">
             <button class="btn deep-orange accent-4" [routerLink]="['../../']" routerLinkActive="router-link-active">CANCELAR</button>
@@ -9,6 +9,18 @@
     </div>
     <div class="row">
         <div [ngSwitch]="ruta">
+            <agregar-categoria *ngSwitchCase="'Categoria'"></agregar-categoria>
+            <agregar-cliente *ngSwitchCase="'Cliente'"></agregar-cliente>
+            <agregar-documento *ngSwitchCase="'Documento'"></agregar-documento>
+            <agregar-grupopersona *ngSwitchCase="'GrupoPersona'"></agregar-grupopersona>
+            <agregar-inconsistencia *ngSwitchCase="'Inconsistencia'"></agregar-inconsistencia>
+            <agregar-lineaproducto *ngSwitchCase="'LineaProducto'"></agregar-lineaproducto>
+            <agregar-pais *ngSwitchCase="'Pais'"></agregar-pais>
+            <agregar-proveedor *ngSwitchCase="'Proveedor'"></agregar-proveedor>
+            <agregar-rol *ngSwitchCase="'Rol'"></agregar-rol>
+            <agregar-segmento *ngSwitchCase="'Segmento'"></agregar-segmento>
+            <agregar-tipoFiscal *ngSwitchCase="'TipoFiscal'"></agregar-tipoFiscal>
+            <agregar-tipoIndustria *ngSwitchCase="'TipoIndustria'"></agregar-tipoIndustria>
             <add-usuario *ngSwitchCase="'Usuario'"></add-usuario>
             <div *ngSwitchDefault>output2</div>
         </div>

@@ -17,9 +17,7 @@ export class SideBarService {
         { key: 'Proveedor', name: 'Proveedores' },
     ]
 
-    getList(list: string) {
-        if (list == 'mantenimiento') {
+    getList() {
             return this.mantenimiento
-        }
     }
 }

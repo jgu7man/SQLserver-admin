@@ -16,10 +16,17 @@
             <input type="text" name="LastName" id="LastName" [(ngModel)]="usuario.LastName" #LastName="ngModel" required>
             <label for="LastName">Apellido</label>
         </div>
+        <div class="col s12">
+            <select name="RolId" id="RolId" [(ngModel)]="usuario.RolId" #RolId="ngModel" required>
+                <option value="" disabled>Elige un rol</option>
+                <option *ngFor="let rol of roles" [value]="rol.RolId">{{rol.RolDescription}}</option>
+            </select>
+        </div>
+        <br>
         <div class="col s12 center">
             <button [disabled]="!usuarioForm.form.valid" class="btn light-blue darken-4" type="submit">
-                              GUARDAR
-                            </button>
+                GUARDAR
+            </button>
         </div>
     </div>
 </form>

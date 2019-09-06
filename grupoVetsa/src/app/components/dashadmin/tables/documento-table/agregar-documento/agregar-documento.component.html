@@ -1,0 +1,17 @@
+<form #AddDocumentoForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="Documento" id="Documento" [(ngModel)]="Documento.Documento" #Categoria="ngModel" required>
+            <label for="Documento">Nombre del Documento</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddDocumentoForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+        </div>
+
+
+
+    </div>
+</form>

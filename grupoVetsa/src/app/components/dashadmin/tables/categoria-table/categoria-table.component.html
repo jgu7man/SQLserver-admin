@@ -1,0 +1,24 @@
+<table class="bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Categoria</th>
+            <th>Usuario Creo</th>
+
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of categorias">
+
+            <td> {{item.Id}} </td>
+            <td> {{item.Categoria}} </td>
+            <td> {{item.CreatedBy}} </td>
+            <td class="opciones">
+                <i class="fas fa-user azul-text" (click)="onChangeRol(item.Id)"></i>
+                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Categoria', item.Id]"></i>
+                <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

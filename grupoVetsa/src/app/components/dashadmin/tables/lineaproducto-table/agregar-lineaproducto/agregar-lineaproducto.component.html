@@ -1,0 +1,15 @@
+<form #AddLineaProductoForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="LineaProducto" id="LineaProducto" [(ngModel)]="lineaProducto.LineaProducto" #LineaProducto="ngModel" required>
+            <label for="LineaProducto">Nombre de la Categoria</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddLineaProductoForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,25 @@
+<div class="pop-up">
+    <div class="col s12">
+        <div id="close" (click)="onClose()">
+            <i class="fas fa-times    "></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 center">
+            <h5>BORRAR ITEM</h5>
+        </div>
+    </div>
+    <form action="#" onsubmit="return false" #changeRol="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col s12">
+                <p>¿CONFIRMAS BORRAR ESTE ITEM?</p>
+            </div>
+            <div class="col s6 center">
+                <button class="btn grey" (click)="onClose()">cancelar</button>
+            </div>
+            <div class="col s6 center">
+                <button class="btn" type="submit">BORRAR</button>
+            </div>
+        </div>
+    </form>
+</div>

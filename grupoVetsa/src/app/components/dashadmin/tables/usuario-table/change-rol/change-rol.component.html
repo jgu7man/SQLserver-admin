@@ -1,0 +1,26 @@
+<div class="pop-up">
+    <div class="col s12">
+        <div id="close" (click)="onClose()">
+            <i class="fas fa-times    "></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 center">
+            <h5>CAMBIAR ROL</h5>
+        </div>
+    </div>
+    <form action="#" onsubmit="return false" #changeRol="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col s12">
+                <select [(ngModel)]="rol.RolId" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let item of roles" [value]="item.RolId">
+                       {{item.RolDescription}}
+                    </option>
+                </select>
+            </div>
+            <div class="col s12 center">
+                <button class="btn" type="submit">ASIGNAR</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,18 +1,32 @@
 <div class="container">
     <div class="row">
         <div class="col s10">
-            <h5>Usuarios</h5>
+            <h5> {{tabla.name}} </h5>
         </div>
         <div class="col s2">
-            <button class="btn light-blue darken-4" [routerLink]="['../add/', ruta]" routerLinkActive="router-link-active">AGREGAR</button>
+            <button class="btn light-blue darken-4" [routerLink]="['../../add/', ruta]" routerLinkActive="router-link-active">AGREGAR</button>
         </div>
     </div>
     <div class="row">
         <div [ngSwitch]="ruta">
-            <usuario-table *ngSwitchCase="'Usuario'"></usuario-table>
+            <categoria-table *ngSwitchCase="'Categoria'" [categorias]="response"></categoria-table>
+            <cliente-table *ngSwitchCase="'Cliente'" [clientes]="response"></cliente-table>
+            <documento-table *ngSwitchCase="'Documento'" [documentos]="response"></documento-table>
+            <grupopersona-table *ngSwitchCase="'GrupoPersona'" [gruposPersona]="response"></grupopersona-table>
+            <inconsistencia-table *ngSwitchCase="'Inconsistencia'" [inconsistencias]="response"></inconsistencia-table>
+            <lineaproducto-table *ngSwitchCase="'LineaProducto'" [lineasProducto]="response"></lineaproducto-table>
+            <pais-table *ngSwitchCase="'Pais'" [paises]="response"></pais-table>
+            <proveedor-table *ngSwitchCase="'Proveedor'" [proveedores]="response"></proveedor-table>
+            <rol-table *ngSwitchCase="'Rol'" [roles]="response"></rol-table>
+            <segmento-table *ngSwitchCase="'Segmento'" [segmentos]="response"></segmento-table>
+            <tipofiscal-table *ngSwitchCase="'TipoFiscal'" [tiposFiscales]="response"></tipofiscal-table>
+            <tipoindustria-table *ngSwitchCase="'TipoIndsutria'" [tiposIndustria]="response"></tipoindustria-table>
+            <usuario-table *ngSwitchCase="'Usuario'" [usuarios]="response"></usuario-table>
             <div *ngSwitchDefault>
-                <i class="fas fa-arrow-left    "></i> Elige una tabla para verla
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>
 </div>
+
+<admin-borrar class="overlay" style="display: none"></admin-borrar>

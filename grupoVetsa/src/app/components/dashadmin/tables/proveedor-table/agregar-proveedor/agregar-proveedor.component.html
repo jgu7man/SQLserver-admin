@@ -1,0 +1,61 @@
+<form #AddProveedorForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="Proveedor" id="Proveedor" [(ngModel)]="proveedor.Proveedor" #Proveedor="ngModel" required>
+            <label for="Proveedor">Nombre del Provedor</label>
+        </div>
+        <div class="col s6 input-field">
+            <input type="text" name="IdentificadorFiscal" id="IdentificadorFiscal" [(ngModel)]="proveedor.IdentificadorFiscal" #IdentificadorFiscal="ngModel" required>
+            <label for="IdentificadorFiscal">Identificador Fiscal</label>
+        </div>
+        <!--Combobox que traera la informacion de la tabla TipoIdentificador-->
+        <div class="col s6">
+            <label for="TipoIdentificador">Tipo Identificador</label>
+            <select #TipoIdentificador="ngModel" [(ngModel)]="proveedor.TipoIdentificador" name="TipoIdentificador" id="TipoIdentificador">
+                <option value=""></option>
+            </select>
+        </div>
+        <!--Combobox que traera la informacion de la tabla GrupoPersona-->
+        <div class="col s12">
+            <label for="GrupoPersona">Grupo Persona</label>
+            <select #GrupoPersona="ngModel" name="GrupoPersona" id="GrupoPersona" [(ngModel)]="proveedor.GrupoPersona">
+                <option *ngFor="let item of GrupoPersona_items" value="{{item.Id}}"> {{item.GrupoPersona}}</option>
+            </select>
+        </div>
+
+        <!--Combobox que traera la informacion de la tabla Cliente-->
+        <div class="col s6">
+            <label for="Cliente">Cliente</label>
+            <select name="Cliente" #Cliente="ngModel" [(ngModel)]="proveedor.Cliente ">
+                <option selected *ngFor="let item of Cliente_items " value="{{item.Id}} ">{{item.Cliente}}</option>
+            </select>
+        </div>
+        <!--Combobox que traera la informacion de la tabla Pais-->
+        <div class="col s6 ">
+            <label for="Pais ">Pais</label>
+            <select #Pais="ngModel" name="Paise " [(ngModel)]="proveedor.Pais ">
+                    <option selected *ngFor="let item of Pais_items " value="{{item.Id}} ">{{item.Pais}}</option>
+            </select>
+        </div>
+        <!--Combobox que traera la informacion de la tabla Pais-->
+        <div class="col s6 ">
+            <label for="PaisOperacion ">PaisOperacion</label>
+            <select #PaisOperacion="ngModel" name="PaisOperacion " [(ngModel)]="proveedor.PaisOperacion ">
+                    <option selected *ngFor="let item of Pais_items " value="{{item.Id}} ">{{item.Pais}}</option>
+            </select>
+        </div>
+        <!--Combobox que traera la informacion de la tabla Segmento-->
+        <div class="col s6 ">
+            <label for="Segmento ">Segmento</label>
+            <select #Segmento="ngModel" name="Segmento" [(ngModel)]="proveedor.Segmento ">
+                            <option selected *ngFor="let item of Segmento_items " value="{{item.Id}} ">{{item.Segmento}}</option>
+                    </select>
+        </div>
+
+        <div class="col s12 center ">
+            <button [disabled]="!AddProveedorForm.form.valid " class="btn deep-purple darken-4 " type="submit ">
+                Agregar
+            </button>
+        </div>
+    </div>
+</form>

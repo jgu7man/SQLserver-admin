@@ -22,4 +22,19 @@ export class AdminTopAreaComponent implements OnInit {
     this.router.navigate(['/'])
   }
 
+  mantMenu() {
+    $('#mant-menu').slideToggle()
+    $('#report-menu').css('display', 'none')
+  }
+
+  closeMenu() {
+    $('#report-menu').css('display', 'none')
+    $('#mant-menu').css('display', 'none')
+  }
+
+  reportMenu() {
+    $('#report-menu').slideToggle()
+    $('#mant-menu').css('display', 'none')
+  }
+
 }

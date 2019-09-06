@@ -13,7 +13,7 @@ export class DashadminComponent implements OnInit {
   constructor(
     private router: Router
   ) {
-    this.usuario = new UsuarioModel(0,'','','')
+    this.usuario = new UsuarioModel(0,0,'','','','',0,0)
    }
 
   ngOnInit() {

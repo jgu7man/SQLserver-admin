@@ -11,23 +11,32 @@ import { Router } from '@angular/router';
 })
 export class AddUsuarioComponent implements OnInit {
 
-  public usuario: UsuarioModel
+  public usuario: UsuarioModel;
+  public roles = []
   constructor(
     private _mant: MantenimientoService,
     private _alerta: AlertaService,
   ) {
-    this.usuario = new UsuarioModel(0,'','','','',0,0)
+    this.usuario = new UsuarioModel(0,0,'','','','',0,0)
    }
 
   ngOnInit() {
+    this.getRoles()
     var user =  JSON.parse(sessionStorage.getItem('gvlog'))
     this.usuario.CreatedBy = user.UserId
     this.usuario.ModifiedBy = user.UserId
   }
 
   onSubmit() {
+    this.usuario.RolId = +this.usuario.RolId
     this._mant.saveData('Usuario', this.usuario).subscribe(res => {
       this._alerta.setAlerta(res)
+    })
+  }
+
+  getRoles() {
+    this._mant.getData('Rol').subscribe(res => {
+      this.roles = res
     })
   }
 

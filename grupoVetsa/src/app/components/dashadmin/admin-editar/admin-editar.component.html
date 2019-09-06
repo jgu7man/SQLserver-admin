@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col s10">
+            <h5>Editar {{tabla.name}} </h5>
+        </div>
+        <div class="col s2">
+            <button class="btn deep-orange accent-4" [routerLink]="['../../../mantenimiento', ruta]">CANCELAR</button>
+        </div>
+    </div>
+    <div class="row">
+        <div [ngSwitch]="ruta">
+            <editar-categoria *ngSwitchCase="'Categoria'"></editar-categoria>
+            <editar-cliente *ngSwitchCase="'Cliente'"></editar-cliente>
+            <editar-documento *ngSwitchCase="'Documento'"></editar-documento>
+            <editar-grupopersona *ngSwitchCase="'GrupoPersona'"></editar-grupopersona>
+            <editar-inconsistencia *ngSwitchCase="'Inconsistencia'"></editar-inconsistencia>
+            <editar-lineaproducto *ngSwitchCase="'LineaProducto'"></editar-lineaproducto>
+            <editar-pais *ngSwitchCase="'Pais'"></editar-pais>
+            <editar-proveedor *ngSwitchCase="'Proveedor'"></editar-proveedor>
+            <editar-rol *ngSwitchCase="'Rol'"></editar-rol>
+            <editar-segmento *ngSwitchCase="'Segmento'"></editar-segmento>
+            <editar-tipofiscal *ngSwitchCase="'TipoFiscal'"></editar-tipofiscal>
+            <editar-tipoindustria *ngSwitchCase="'TipoIndsutria'"></editar-tipoindustria>
+            <editar-usuario *ngSwitchCase="'Usuario'"></editar-usuario>
+        </div>
+    </div>
+</div>

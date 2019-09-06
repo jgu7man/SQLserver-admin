@@ -10,15 +10,17 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of usuarios">
-            <td> {{item.UserId}} </td>
+            <td> {{item.Id}} </td>
             <td> {{item.UserName}} </td>
             <td> {{item.FirstName}} </td>
             <td> {{item.LastName}} </td>
             <td class="opciones">
-                <i class="fas fa-eye azul-text  "></i>
-                <i class="fas fa-edit verde-text  "></i>
-                <i class="fas fa-trash rojo-text  "></i>
+                <i class="fas fa-user azul-text" (click)="onChangeRol(item.Id)"></i>
+                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Usuario', item.Id]"></i>
+                <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i>
             </td>
         </tr>
     </tbody>
 </table>
+
+<change-rol class="overlay" style="display: none" [UserId]="idSelected"></change-rol>

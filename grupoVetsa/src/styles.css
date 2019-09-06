@@ -12,6 +12,10 @@ input:not(.browser-default):focus:not([readonly])+label {
     color: #327BB7 !important;
 }
 
+select {
+    display: block !important;
+}
+
 
 /* TABLAS */
 
@@ -54,4 +58,27 @@ tr:hover .opciones {
 
 .rojo-text {
     color: #D95350
+}
+
+
+/* POP-UP */
+
+.pop-up {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 350px;
+    background: #fff;
+    padding: 2em;
+}
+
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    z-index: 50;
 }

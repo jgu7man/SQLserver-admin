@@ -23,11 +23,37 @@ app.use(function(req, res, next) {
     next();
 });
 
-var usuarios = require('./routes/usuarios');
 var tablas = require('./routes/tablas');
+var usuarios = require('./routes/usuarios');
+var categoria = require('./routes/categoria');
+var inconsistencia = require('./routes/inconsistencia');
+var proveedor = require('./routes/proveedors');
+var cliente = require('./routes/cliente');
+var documento = require('./routes/documentos');
+var grupopersona = require('./routes/grupopersona');
+var lineaproducto = require('./routes/lineaproducto');
+var pais = require('./routes/pais');
+var rol = require('./routes/rol');
+var segmento = require('./routes/segmento');
+var tipofiscal = require('./routes/tipofiscal');
+var tipoindustria = require('./routes/tipoindustria');
+
 
 app.use('/', tablas);
 app.use('/', usuarios);
+app.use('/', categoria);
+app.use('/', inconsistencia);
+app.use('/', proveedor);
+app.use('/', cliente);
+app.use('/', documento);
+app.use('/', grupopersona);
+app.use('/', lineaproducto);
+app.use('/', pais);
+app.use('/', rol);
+app.use('/', segmento);
+app.use('/', tipofiscal);
+app.use('/', tipoindustria);
+
 
 
 

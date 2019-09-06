@@ -5,14 +5,18 @@ import { DashadminComponent } from './components/dashadmin/dashadmin.component';
 import { MantenimientoComponent } from './components/dashadmin/mantenimiento/mantenimiento.component';
 import { ReportesComponent } from './components/dashadmin/reportes/reportes.component';
 import { AdminAddComponent } from './components/dashadmin/admin-add/admin-add.component';
+import { AdminEditarComponent } from './components/dashadmin/admin-editar/admin-editar.component';
+import { AdminBorrarComponent } from './components/dashadmin/admin-borrar/admin-borrar.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashadmin', component: DashadminComponent, children: [
-    { path: '', component: MantenimientoComponent },
+    { path: '', redirectTo: '/dashadmin/mantenimiento', pathMatch: 'full' },
     { path: 'mantenimiento', component: MantenimientoComponent },
     { path: 'mantenimiento/:string', component: MantenimientoComponent },
-    { path: 'mantenimiento/add/:string', component: AdminAddComponent },
+    { path: 'add/:string', component: AdminAddComponent },
+    { path: 'editar/:string/:id', component: AdminEditarComponent },
+    { path: 'borrar/:string/:id', component: AdminBorrarComponent},
     { path: 'reportes', component: ReportesComponent }
   ]}
 ];

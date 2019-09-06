@@ -1,0 +1,32 @@
+<table class="bordered">
+    <thead>
+        <tr>
+            <th>Fecha Registro</th>
+            <th>Cliente</th>
+            <th>Hoja de Ruta</th>
+            <th>Proveedor</th>
+            <th>Documento</th>
+            <th>Numero Documento</th>
+            <th>Categoria</th>
+
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of inconsistencias">
+
+            <td> {{item.FechaRegistro}} </td>
+            <td> {{item.Cliente}} </td>
+            <td> {{item.HojaRuta}} </td>
+            <td> {{item.Proveedor}} </td>
+            <td> {{item.Documento}} </td>
+            <td> {{item.NumeroDocumento}} </td>
+            <td> {{item.Categoria}} </td>
+            <td class="opciones">
+                <i class="fas fa-user azul-text" (click)="onChangeRol(item.Id)"></i>
+                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Inconsistencia', item.Id]"></i>
+                <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

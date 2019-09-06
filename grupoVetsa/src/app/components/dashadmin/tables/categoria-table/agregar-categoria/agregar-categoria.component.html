@@ -1,0 +1,15 @@
+<form #AddCategoriaForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="Categoria" id="Categoria" [(ngModel)]="categoria.Categoria" #Categoria="ngModel" required>
+            <label for="Categoria">Nombre de la Categoria</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddCategoriaForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+        </div>
+
+    </div>
+</form>

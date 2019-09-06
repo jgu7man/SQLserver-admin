@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MantenimientoService } from '../../../../services/mantenimiento.service';
+import { BorrarService } from '../../../../services/borrar.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'usuario-table',
@@ -8,16 +10,25 @@ import { MantenimientoService } from '../../../../services/mantenimiento.service
 })
 export class UsuarioTableComponent implements OnInit {
 
-  public usuarios
+  @Input() usuarios
+  public idSelected
+  public tabla
   constructor(
-    private _mant: MantenimientoService
-  ) {
-    this._mant.getData('Usuario').subscribe(res => {
-      this.usuarios = res
-    })
-   }
+    private _borrar: BorrarService,
+  ) {}
 
   ngOnInit() {
+    
+  }
+
+  onChangeRol(id) {
+    $('change-rol').fadeToggle()
+    this.idSelected = id
+  }
+
+  toDelete(id) {
+    $('admin-borrar').fadeToggle()
+    this._borrar.sendId(this.tabla, id)
   }
 
 }

@@ -1,0 +1,23 @@
+<form *ngIf="usuario" action="#" method="post" onsubmit="return false" #usuarioForm="ngForm" (ngSubmit)="onEdit()">
+    <div class="row">
+
+        <div class="col s12 input-field">
+            <input type="password" placeholder="usuario.Password" name="Password" id="Password" [(ngModel)]="usuario.Password" #Password="ngModel" required>
+            <label for="Password">Constraseña</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" placeholder="usuario.FirstName" name="FirstName" id="FirstName" [(ngModel)]="usuario.FirstName" #FirstName="ngModel" required>
+            <label for="FirstName">Nombre</label>
+        </div>
+        <div class="col s12 input-field">
+            <input type="text" placeholder="usuario.LastName" name="LastName" id="LastName" [(ngModel)]="usuario.LastName" #LastName="ngModel" required>
+            <label for="LastName">Apellido</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!usuarioForm.form.valid" class="btn light-blue darken-4" type="submit">
+                EDITAR
+            </button>
+        </div>
+    </div>
+</form>
