@@ -24,6 +24,7 @@ router.post('/saveTipoFiscal', function(req, res, next) {
         // SAVE DATA
         var campos = 'Id, TipoFiscal, CreatedDate, ModifiedDate, CreatedBy';
         request.query(`
+        SET IDENTITY_INSERT TipoFiscal ON
             INSERT INTO TipoFiscal (${campos}) 
             VALUES (
                 ${newId},
@@ -32,6 +33,7 @@ router.post('/saveTipoFiscal', function(req, res, next) {
                 '${date}',
                 ${body.CreatedBy}
                 )
+                SET IDENTITY_INSERT TipoFiscal OFF
             `,
 
             function(err, result) {

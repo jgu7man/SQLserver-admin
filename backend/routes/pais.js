@@ -24,6 +24,7 @@ router.post('/savePais', function(req, res, next) {
         // SAVE DATA
         var campos = 'Id, Pais, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Pais ON
             INSERT INTO Pais (${campos}) 
             VALUES (
                 ${newId},
@@ -33,6 +34,7 @@ router.post('/savePais', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
+                SET IDENTITY_INSERT Pais ON
             `,
 
             function(err, result) {

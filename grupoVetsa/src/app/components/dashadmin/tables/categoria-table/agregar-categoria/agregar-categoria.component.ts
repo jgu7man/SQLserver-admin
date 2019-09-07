@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaModel } from 'src/app/models/categoria.model';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { AlertaService } from '../../../../../services/alerta.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agregar-categoria',
@@ -13,7 +14,8 @@ export class AgregarCategoriaComponent implements OnInit {
   public categoria: CategoriaModel
   constructor(
     private _mant: MantenimientoService,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private router: Router
   ) {
     this.categoria = new CategoriaModel(0,'',0,0)
    }
@@ -27,6 +29,7 @@ export class AgregarCategoriaComponent implements OnInit {
   onSubmit() {
     this._mant.saveData('Categoria', this.categoria).subscribe(res => {
       this._alerta.setAlerta(res)
+      this.router.navigate(['/dashadmin/mantenimiento/Categoria'])
     })
   }
 

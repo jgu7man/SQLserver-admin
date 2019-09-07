@@ -24,6 +24,7 @@ router.post('/saveCategoria', function(req, res, next) {
         // SAVE DATA
         var campos = 'Id, Categoria, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Categoria ON
             INSERT INTO Categoria (${campos}) 
             VALUES (
                 ${newId},
@@ -33,6 +34,7 @@ router.post('/saveCategoria', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
+        SET IDENTITY_INSERT Categoria OFF
             `,
 
             function(err, result) {
@@ -48,7 +50,7 @@ router.post('/saveCategoria', function(req, res, next) {
                 data = result.recordset;
                 console.log(data);
                 return res.status(200).send({
-                    mensaje: 'Usuario agregado con éxito',
+                    mensaje: 'Categoria agregada con éxito',
                     tipo: 'succsess'
                 });
             });

@@ -10,7 +10,6 @@ export class CategoriaTableComponent implements OnInit {
 
   @Input() categorias
   public idSelected
-  public tabla
   constructor(
     private _borrar: BorrarService,
   ) {}
@@ -19,14 +18,9 @@ export class CategoriaTableComponent implements OnInit {
     
   }
 
-  onChangeRol(id) {
-    $('change-rol').fadeToggle()
-    this.idSelected = id
-  }
-
   toDelete(id) {
     $('admin-borrar').fadeToggle()
-    this._borrar.sendId(this.tabla, id)
+    this._borrar.sendId(id)
   }
 
 }

@@ -24,6 +24,7 @@ router.post('/saveProveedor', function(req, res, next) {
         // SAVE DATA 
         var campos = 'Id, Proveedor, IdentificadorFiscal, TipoIdentificador, GrupoPersona, Cliente, Pais, PaisOperacion, Segmento, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Proveedor ON
             INSERT INTO Proveedor (${campos}) 
             VALUES (
                 ${newId},
@@ -40,6 +41,7 @@ router.post('/saveProveedor', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
+                SET IDENTITY_INSERT Proveedor OFF
             `,
 
             function(err, result) {

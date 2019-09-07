@@ -24,6 +24,7 @@ router.post('/saveInconsistencia', function(req, res, next) {
         // SAVE DATA 
         var campos = 'Id, FechaRegistro, FechaRecepcion, Cliente, HojaRuta, Proveedor, Documento, NumeroDocumento, Categoria, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Inconsistencia ON
             INSERT INTO Inconsistencia (${campos}) 
             VALUES (
                 ${newId},
@@ -40,6 +41,7 @@ router.post('/saveInconsistencia', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
+                SET IDENTITY_INSERT Inconsistencia OFF
             `,
 
             function(err, result) {

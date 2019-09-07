@@ -1,3 +1,18 @@
-<p>
-  editar-documento works!
-</p>
+<form #AddDocumentoForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <!-- AGREGAR UN PLACE HOLDER CON EL MISMO NOMBRE DE VARIABLE -->
+            <input type="text" name="Documento" id="Documento" placeholder="documento.Documento" [(ngModel)]="documento.Documento" #Categoria="ngModel" required>
+            <label for="Documento">Nombre del Documento</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddDocumentoForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+        </div>
+
+
+
+    </div>
+</form>

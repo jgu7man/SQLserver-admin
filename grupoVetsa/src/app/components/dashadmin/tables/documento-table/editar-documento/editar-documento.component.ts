@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentoModel } from 'src/app/models/documento.model';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { AlertaService } from '../../../../../services/alerta.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'editar-documento',
@@ -17,7 +17,8 @@ export class EditarDocumentoComponent implements OnInit {
   constructor(
     private _mant: MantenimientoService,
     private _ruta: ActivatedRoute,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private router: Router
   ) {
     this._ruta.params.subscribe(ruta => {
       this.ruta = ruta['string']
@@ -39,6 +40,7 @@ export class EditarDocumentoComponent implements OnInit {
   onSubmit() {
     this._mant.saveData('Documento', this.documento).subscribe(res => {
       this._alerta.setAlerta(res)
+      this.router.navigate(['/dashadmin/mantenimiento/Documento'])
     })
   }
 

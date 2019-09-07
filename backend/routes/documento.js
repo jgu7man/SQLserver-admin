@@ -24,6 +24,7 @@ router.post('/saveDocumento', function(req, res, next) {
         // SAVE DATA
         var campos = 'Id, Documento, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Documento ON
             INSERT INTO Documento (${campos}) 
             VALUES (
                 ${newId},
@@ -33,6 +34,7 @@ router.post('/saveDocumento', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
+                SET IDENTITY_INSERT Documento OFF
             `,
 
             function(err, result) {

@@ -24,6 +24,7 @@ router.post('/saveRol', function(req, res, next) {
         // SAVE DATA
         var campos = 'Id, Rol, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Rol ON
             INSERT INTO Rol (${campos}) 
             VALUES (
                 ${newId},
@@ -33,6 +34,7 @@ router.post('/saveRol', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
+                SET IDENTITY_INSERT Rol OFF
             `,
 
             function(err, result) {

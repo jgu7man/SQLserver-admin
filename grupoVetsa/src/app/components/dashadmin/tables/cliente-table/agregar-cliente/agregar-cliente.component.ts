@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteModel } from 'src/app/models/cliente.model';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { AlertaService } from '../../../../../services/alerta.service';
+// AGREGAR ROUTER
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,8 +21,10 @@ export class AgregarClienteComponent implements OnInit {
   constructor(
     private _mant: MantenimientoService,
     private _alerta: AlertaService,
+    // DECLARAR ROUTER
     private router: Router
   ) {
+    // CAMBIAR LOS INT DE 0 A 1
     this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1)
    }
 
@@ -41,6 +44,7 @@ export class AgregarClienteComponent implements OnInit {
   }
 
   onSubmit() {
+    // TODAS LAS LLAVES FORANEAS FORZARLAS A SER INT
     this.cliente.LineaProducto = +this.cliente.LineaProducto
     this.cliente.Pais = +this.cliente.Pais
     this.cliente.TipoRegistro = +this.cliente.TipoRegistro
@@ -48,9 +52,10 @@ export class AgregarClienteComponent implements OnInit {
     this.cliente.Segmento = +this.cliente.Segmento
     this.cliente.Mercado = +this.cliente.Mercado
     this.cliente.PaisFacturacion = +this.cliente.PaisFacturacion
-    console.log(this.cliente);
+
     this._mant.saveData('Cliente', this.cliente).subscribe(res => {
       this._alerta.setAlerta(res)
+      // AGREGAR RUTA DE REDIRECCIÓN
       this.router.navigate(['/dashadmin/mantenimiento/Cliente'])
     })
   }

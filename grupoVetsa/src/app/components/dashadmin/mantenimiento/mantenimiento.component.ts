@@ -21,7 +21,7 @@ export class MantenimientoComponent implements OnInit, OnChanges {
     private _ruta: ActivatedRoute,
     private _sidebar: SideBarService,
     private _mant: MantenimientoService,
-    // private _borrar: BorrarService
+    private _borrar: BorrarService
   ) {
     this.tabla = new SideBarModel('', '')
     
@@ -38,17 +38,19 @@ export class MantenimientoComponent implements OnInit, OnChanges {
    }
 
   ngOnInit() {
-    // this._borrar.reload.subscribe(reload => {
-    //   this.reload = !this.reload
-    // })
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     
-    this._mant.getData(this.ruta).subscribe(res => {
-          this.response = res
-    })
+    
     console.log(changes);
+  }
+
+  reloaded(e) {
+        this._mant.getData(this.ruta).subscribe(res => {
+            this.response = res
+      })
   }
 
   getTablaTitle() {

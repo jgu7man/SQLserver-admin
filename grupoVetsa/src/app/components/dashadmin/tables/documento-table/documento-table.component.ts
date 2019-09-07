@@ -19,14 +19,10 @@ export class DocumentoTableComponent implements OnInit {
     
   }
 
-  onChangeRol(id) {
-    $('change-rol').fadeToggle()
-    this.idSelected = id
-  }
-
   toDelete(id) {
     $('admin-borrar').fadeToggle()
-    this._borrar.sendId(this.tabla, id)
+    // DEJAR LA VARIABLE DE ID SOLAMENTE
+    this._borrar.sendId(id)
   }
 
 }
