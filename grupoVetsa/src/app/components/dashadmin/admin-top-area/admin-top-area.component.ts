@@ -2,14 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'admin-top-area',
   templateUrl: './admin-top-area.component.html',
   styleUrls: ['./admin-top-area.component.css']
 })
 export class AdminTopAreaComponent implements OnInit {
 
-  @Input() nombre
-  @Input() apellido
+  @Input() nombre;
+  @Input() apellido;
   constructor(
     private router: Router
   ) { }
@@ -18,23 +19,23 @@ export class AdminTopAreaComponent implements OnInit {
   }
 
   logout() {
-    sessionStorage.removeItem('gvlog')
-    this.router.navigate(['/'])
+    sessionStorage.removeItem('gvlog');
+    this.router.navigate(['/']);
   }
 
   mantMenu() {
-    $('#mant-menu').slideToggle()
-    $('#report-menu').css('display', 'none')
+    $('#mant-menu').slideToggle();
+    $('#report-menu').css('display', 'none');
   }
 
   closeMenu() {
-    $('#report-menu').css('display', 'none')
-    $('#mant-menu').css('display', 'none')
+    $('#report-menu').css('display', 'none');
+    $('#mant-menu').css('display', 'none');
   }
 
   reportMenu() {
-    $('#report-menu').slideToggle()
-    $('#mant-menu').css('display', 'none')
+    $('#report-menu').slideToggle();
+    $('#mant-menu').css('display', 'none');
   }
 
 }

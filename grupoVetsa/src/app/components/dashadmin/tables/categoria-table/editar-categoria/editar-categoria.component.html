@@ -1,3 +1,13 @@
-<p>
-  editar-categoria works!
-</p>
+<form *ngIf="categoria" action="#" method="post" onsubmit="return false" #TipoIndustriaForm="ngForm" (ngSubmit)="onEdit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="Categoria" id="Categoria" [(ngModel)]="categoria.Categoria" #Categoria="ngModel" required>
+            <label for="Categoria">Nombre de la Categoria</label>
+        </div>
+        <div class="col s12 center">
+            <button [disabled]="!AddDocumentoForm.form.valid" class="btn light-blue darken-4" type="submit">
+EDITAR
+</button>
+        </div>
+    </div>
+</form>

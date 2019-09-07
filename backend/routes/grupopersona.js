@@ -23,7 +23,8 @@ router.post('/saveGrupoPersona', function(req, res, next) {
 
         // SAVE DATA
         var campos = 'Id, GrupoPersona, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-        request.query(`
+        request.query(
+            `SET IDENTITY_INSERT GrupoPersona ON
             INSERT INTO GrupoPersona (${campos}) 
             VALUES (
                 ${newId},
@@ -33,7 +34,7 @@ router.post('/saveGrupoPersona', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
-            `,
+                SET IDENTITY_INSERT GrupoPersona OFF `,
 
             function(err, result) {
                 if (err) {
@@ -95,3 +96,5 @@ router.post('/updateGrupoPersona', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

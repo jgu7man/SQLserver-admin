@@ -22,18 +22,19 @@ router.post('/saveRol', function(req, res, next) {
 
 
         // SAVE DATA
-        var campos = 'Id, Rol, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-        request.query(`
+        var campos = 'Id, RolDescription, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+        request.query(
+            `SET IDENTITY_INSERT Rol ON
             INSERT INTO Rol (${campos}) 
             VALUES (
                 ${newId},
-                '${body.Rol}',
+                '${body.RolDescription}',
                 '${date}',
                 '${date}',
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
-            `,
+                SET IDENTITY_INSERT Rol OFF `,
 
             function(err, result) {
                 if (err) {
@@ -95,3 +96,5 @@ router.post('/updateRol', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

@@ -23,7 +23,8 @@ router.post('/saveCliente', function(req, res, next) {
 
         // SAVE DATA CLIENTE
         var campos = 'Id, GrupoEmpresarial, RegistroTributario, TipoRegistro, Direccion, WebPage, Actividad, LineaProducto, Vision, Mision, Valores, Pais, Telefono, Industria, TipoIndustria, Segmento, RSE, Marcas, Mercado, PaisFacturacion, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-        request.query(`
+        request.query(
+            `SET IDENTITY_INSERT Cliente ON
             INSERT INTO Cliente (${campos}) 
             VALUES (
                 ${newId},
@@ -51,7 +52,7 @@ router.post('/saveCliente', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
-            `,
+                SET IDENTITY_INSERT Cliente OFF `,
 
             function(err, result) {
                 if (err) {
@@ -163,3 +164,5 @@ router.post('/updateCliente', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

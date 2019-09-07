@@ -1,3 +1,13 @@
-<p>
-  editar-tipofiscal works!
-</p>
+<form *ngIf="tipoFiscal" action="#" method="post" onsubmit="return false" #TipoFiscalForm="ngForm" (ngSubmit)="onEdit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="TipoFiscal" id="TipoFiscal" [(ngModel)]="tipoFiscal.TipoFiscal" #TipoFiscal="ngModel" required>
+            <label for="TipoFiscal">Tipo Fiscal</label>
+        </div>
+        <div class="col s12 center">
+            <button [disabled]="!tipofiscalForm.form.valid" class="btn light-blue darken-4" type="submit">
+            EDITAR
+        </button>
+        </div>
+    </div>
+</form>

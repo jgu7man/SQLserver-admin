@@ -23,7 +23,8 @@ router.post('/saveTipoIndustria', function(req, res, next) {
 
         // SAVE DATA
         var campos = 'Id, TipoIndustria, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-        request.query(`
+        request.query(
+            `SET IDENTITY_INSERT TipoIndustria ON
             INSERT INTO TipoIndustria (${campos}) 
             VALUES (
                 ${newId},
@@ -33,7 +34,7 @@ router.post('/saveTipoIndustria', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy},
                 )
-            `,
+                SET IDENTITY_INSERT TipoIndustria OFF `,
 
             function(err, result) {
                 if (err) {
@@ -95,3 +96,4 @@ router.post('/updateTipoIndustria', function(req, res, next) {
         }
     );
 });
+module.exports = router;

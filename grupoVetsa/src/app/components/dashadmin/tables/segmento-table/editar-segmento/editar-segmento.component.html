@@ -1,3 +1,13 @@
-<p>
-  editar-segmento works!
-</p>
+<form *ngIf="segmento" action="#" method="post" onsubmit="return false" #TipoIndustriaForm="ngForm" (ngSubmit)="onEdit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="Segmento" id="Segmento" [(ngModel)]="segmento.Segmento" #Segmento="ngModel" required>
+            <label for="Segmento">Nombre del Segmento</label>
+        </div>
+        <div class="col s12 center">
+            <button [disabled]="!AddSegmentoForm.form.valid" class="btn light-blue darken-4" type="submit">
+          EDITAR
+      </button>
+        </div>
+    </div>
+</form>

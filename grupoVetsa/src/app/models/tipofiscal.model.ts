@@ -4,5 +4,5 @@ export class TipoFiscalModel {
         public TipoFiscal: string,
         public CreatedBy: number,
         public ModifiedBy: number
-    ){}
+    ) {}
 }

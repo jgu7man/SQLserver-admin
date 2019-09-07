@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SideBarModel } from '../models/sideBar.model';
 
@@ -15,9 +15,9 @@ export class SideBarService {
         { key: 'Segmento', name: 'Segmentos' },
         { key: 'TipoFiscal', name: 'Tipos Fiscales' },
         { key: 'Proveedor', name: 'Proveedores' },
-    ]
+    ];
 
     getList() {
-            return this.mantenimiento
+            return this.mantenimiento;
     }
 }

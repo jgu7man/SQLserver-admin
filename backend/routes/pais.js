@@ -22,8 +22,9 @@ router.post('/savePais', function(req, res, next) {
 
 
         // SAVE DATA
-        var campos = 'Id, Pais, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-        request.query(`
+        var campos = 'Id, Pais, CreateDate, ModifiedDate, CreatedBy, ModifiedBy';
+        request.query(
+            `SET IDENTITY_INSERT Pais ON
             INSERT INTO Pais (${campos}) 
             VALUES (
                 ${newId},
@@ -33,13 +34,13 @@ router.post('/savePais', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
-            `,
+                SET IDENTITY_INSERT Pais OFF `,
 
             function(err, result) {
                 if (err) {
                     console.log(err);
                     return res.status(200).send({
-                        mensaje: 'Hubo un error al guardar',
+                        mensaje: 'Hubo un error al guardar el pais',
                         tipo: 'warning',
                         error: err
                     });
@@ -95,3 +96,5 @@ router.post('/updatePais', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;
