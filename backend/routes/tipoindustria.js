@@ -95,3 +95,5 @@ router.post('/updateTipoIndustria', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

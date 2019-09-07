@@ -95,3 +95,5 @@ router.post('/updateDocumento', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

@@ -20,6 +20,9 @@ export class AdminAddComponent implements OnInit {
     this.listaTablas = this._sidebar.getList()
     this._ruta.params.subscribe(ruta => {
       this.ruta = ruta['string']
+      if (this.ruta) {
+        this.getTablaTitle()
+      }
       this.getTablaTitle()
     })
     this.tabla = new SideBarModel('','')

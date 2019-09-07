@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EditarClienteComponent implements OnInit {
 
   public cliente: ClienteModel
-  public TipoRegistro_items = []
+  public TipoFiscal_items = []
   public LineaProducto_items = []
   public Pais_items = []
   public TipoIndustria_items = []
@@ -28,7 +28,7 @@ export class EditarClienteComponent implements OnInit {
       this.ruta = ruta['string']
       this.id = ruta['id']
     })
-    this.cliente = new ClienteModel(0,'','',0,'','','',0,'','','',0,'','',0,0,'','',0,0,0)
+    this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1)
    }
 
   ngOnInit() {
@@ -43,6 +43,7 @@ export class EditarClienteComponent implements OnInit {
   }
 
   getTablas() {
+    this._mant.getData('TipoFiscal').subscribe(res => { this.TipoFiscal_items = res })
     this._mant.getData('LineaProducto').subscribe(res => { this.LineaProducto_items = res })
     this._mant.getData('Pais').subscribe(res => { this.Pais_items = res })
     this._mant.getData('TipoIndustria').subscribe(res => { this.TipoIndustria_items = res })
@@ -50,7 +51,7 @@ export class EditarClienteComponent implements OnInit {
   }
 
   onSubmit() {
-    this._mant.saveData('Cliente', this.cliente).subscribe(res => {
+    this._mant.updateData('Cliente', this.cliente).subscribe(res => {
       this._alerta.setAlerta(res)
     })
   }

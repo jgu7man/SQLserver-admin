@@ -18,6 +18,7 @@ export class ClienteModel{
         public Segmento: number,
         public RSE: string,
         public Marcas: string,
+        public Mercado: number,
         public PaisFacturacion: number,
         public CreatedBy: number,
         public ModifiedBy: number

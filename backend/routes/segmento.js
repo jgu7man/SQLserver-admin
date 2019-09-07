@@ -95,3 +95,5 @@ router.post('/updateSegmento', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

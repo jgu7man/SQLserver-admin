@@ -103,3 +103,5 @@ router.post('/updateProveedor', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

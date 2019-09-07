@@ -25,16 +25,21 @@ export class AdminEditarComponent implements OnInit {
     this._ruta.params.subscribe(ruta => {
       this.ruta = ruta['string']
       this.id = ruta['id']
-      
+      if (this.ruta) {
+        this.getTablaTitle()
+        this._mant.getData(this.ruta).subscribe(res => {
+          this.response = res
+        })
+      }
     })
     this.tabla = new SideBarModel('','')
    }
 
   ngOnInit() {
-    this._mant.selectData(this.ruta, this.id).subscribe(res => {
-      this.response = res
-    })
-    this.getTablaTitle()
+    // this._mant.selectData(this.ruta, this.id).subscribe(res => {
+    //   this.response = res
+    // })
+    // this.getTablaTitle()
   }
 
   getTablaTitle() {

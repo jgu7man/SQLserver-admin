@@ -1,4 +1,5 @@
 {
+    "esversion": 6,
     "esnext": false,
     "moz": true,
     "boss": true,

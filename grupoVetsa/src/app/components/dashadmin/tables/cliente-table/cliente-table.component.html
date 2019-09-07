@@ -22,7 +22,7 @@
             <td> {{item.Telefono}} </td>
             <td> {{item.CreatedBy}} </td>
             <td class="opciones">
-                <i class="fas fa-user azul-text" (click)="onChangeRol(item.Id)"></i>
+                <!-- <i class="fas fa-user azul-text" (click)="onChangeRol(item.Id)"></i> -->
                 <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Cliente', item.Id]"></i>
                 <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i>
             </td>

@@ -95,3 +95,5 @@ router.post('/updateGrupoPersona', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

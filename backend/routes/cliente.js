@@ -17,13 +17,19 @@ router.post('/saveCliente', function(req, res, next) {
     // GET LAST INDEX
     request.query('SELECT * FROM Cliente', function(err, result) {
         if (err) { return next(err); }
+        var newId;
         var rec = result.recordset;
-        const newId = rec[rec.length - 1].Id + 1;
+        if (rec.length == 0) { newId = 1; } else {
+            var lastId = rec[rec.length - 1].Id;
+            newId = lastId + 1;
+        }
 
+        console.log(body);
 
         // SAVE DATA CLIENTE
         var campos = 'Id, GrupoEmpresarial, RegistroTributario, TipoRegistro, Direccion, WebPage, Actividad, LineaProducto, Vision, Mision, Valores, Pais, Telefono, Industria, TipoIndustria, Segmento, RSE, Marcas, Mercado, PaisFacturacion, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
+        SET IDENTITY_INSERT Cliente ON
             INSERT INTO Cliente (${campos}) 
             VALUES (
                 ${newId},
@@ -51,7 +57,8 @@ router.post('/saveCliente', function(req, res, next) {
                 ${body.CreatedBy},
                 ${body.ModifiedBy}
                 )
-            `,
+        SET IDENTITY_INSERT Cliente OFF
+        `,
 
             function(err, result) {
                 if (err) {
@@ -64,27 +71,39 @@ router.post('/saveCliente', function(req, res, next) {
                 }
                 var data = {};
                 data = result.recordset;
-                console.log(data);
+                console.log('Cliente agregado');
 
             });
-        request.query('SELECT * FROM Cliente_LineaProducto', function(err, result) {
-            if (err) { return next(err); }
-            var rec = result.recordset;
-            var newIdMerge = rec[rec.length - 1].Id + 1;
 
-            var camposLinea = 'Id, ClienteId, LineaProductoId, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+        request.query('SELECT * FROM Cliente_LineaProducto', function(err, result) {
+            if (err) {
+                return next(err);
+            }
+            var newIdMerge;
+            var recMerge = result.recordset;
+            if (recMerge.length == 0) { newIdMerge = 1; } else {
+                var lastId = recMerge[recMerge.length - 1].Id;
+                newIdMerge = lastId + 1;
+            }
+
+            console.log(newIdMerge);
+            console.log(newId);
+            console.log(body.LineaProducto);
+
+
+            var camposLinea = 'Id, LineaProducto, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy, Cliente';
             request.query(`
-            INSERT INTO Cliente_LineaProducto (${camposLinea  }) 
-            VALUES (
-                ${newIdMerge}
-                ${newId},
-                ${body.LineaProducto},
-                '${date}',
-                '${date}',
-                ${body.CreatedBy},
-                ${body.ModifiedBy}
-                )
-            `,
+                INSERT INTO Cliente_LineaProducto (${camposLinea}) 
+                VALUES (
+                    ${newIdMerge},
+                    ${body.LineaProducto},
+                    '${date}',
+                    '${date}',
+                    ${body.CreatedBy},
+                    ${body.ModifiedBy},
+                    ${newId}
+                    )
+                `,
 
                 function(err, result) {
                     if (err) {
@@ -97,7 +116,7 @@ router.post('/saveCliente', function(req, res, next) {
                     }
                     var data = {};
                     data = result.recordset;
-                    console.log(data);
+                    console.log('LineaProducto agregada a Cliente');
                     return res.status(200).send({
                         mensaje: 'Cliente agregado con éxito',
                         tipo: 'succsess'
@@ -155,7 +174,7 @@ router.post('/updateCliente', function(req, res, next) {
             }
             var data = {};
             data = result.recordset;
-            console.log(data);
+            console.log('cliente editado');
             return res.status(200).send({
                 mensaje: 'Cliente editada con éxito',
                 tipo: 'succsess'
@@ -163,3 +182,5 @@ router.post('/updateCliente', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

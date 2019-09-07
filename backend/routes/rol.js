@@ -95,3 +95,5 @@ router.post('/updateRol', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

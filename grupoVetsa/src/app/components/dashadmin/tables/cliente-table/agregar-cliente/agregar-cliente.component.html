@@ -12,7 +12,7 @@
         <div class="col s6 ">
             <label for="TipoRegistro">Tipo de registro</label>
             <select name="TipoRegistro" #TipoRegistro="ngModel" [(ngModel)]="cliente.TipoRegistro" class="custom-select">
-                <option selected *ngFor="let item of TipoFiscal_items" value="{{item.id}}">{{item.TipoRegistro}} - {{item.id}}</option>
+                <option selected *ngFor="let item of TipoFiscal_items" [value]=item.Id>{{item.TipoFiscal}}</option>
             </select>
         </div>
 
@@ -32,7 +32,7 @@
         <div class="col s6 ">
             <label for="LineaProducto">Linea de producto</label>
             <select #LineaProducto="ngModel" name="LineaProducto" [(ngModel)]="cliente.LineaProducto" class="custom-select">
-                <option selected *ngFor="let item of LineaProducto_items" value="{{item.LineaProducto}}">{{item.LineaProducto}} - {{item.Id}}</option>
+                <option selected *ngFor="let item of LineaProducto_items" [value]=item.Id>{{item.LineaProducto}}</option>
             </select>
         </div>
         <div class="col s12 input-field">
@@ -51,11 +51,11 @@
         <div class="col s6 ">
             <label for="Pais">Pais</label>
             <select #Pais="ngModel" name="Pais" [(ngModel)]="cliente.Pais" class="custom-select">
-                <option selected *ngFor="let item of Pais_items" value="{{item.Id}}">{{item.Pais}} - {{item.Id}}</option>
+                <option selected *ngFor="let item of Pais_items" [value]=item.Id>{{item.Pais}}</option>
             </select>
         </div>
         <div class="col s12 input-field">
-            <input type="number" name="Telefono" id="Telefono" [(ngModel)]="cliente.Telefono" #Telefono="ngModel" required>
+            <input type="text" name="Telefono" id="Telefono" [(ngModel)]="cliente.Telefono" #Telefono="ngModel" required>
             <label for="Telefono">Telefono</label>
         </div>
         <div class="col s12 input-field">
@@ -66,14 +66,14 @@
         <div class="col s6 ">
             <label for="TipoIndustria">Tipo de industria</label>
             <select #TipoIndustria="ngModel" name="TipoIndustria" [(ngModel)]="cliente.TipoIndustria" class="custom-select">
-                <option selected *ngFor="let item of TipoIndustria_items" value="{{item.Id}}">{{item.TipoIndustria}} - {{item.Id}}</option>
+                <option selected *ngFor="let item of TipoIndustria_items" [value]=item.Id>{{item.TipoIndustria}}</option>
             </select>
         </div>
         <!--Combobox que traera la informacion de la tabla Segmento-->
         <div class="col s6 ">
             <label for="Segmento">Segmento</label>
             <select #Segmento="ngModel" name="Segmento" [(ngModel)]="cliente.Segmento" class="custom-select">
-                <option selected *ngFor="let item of Segmento_items" value="{{item.Id}}">{{item.Segmento}}{{item.Id}}</option>
+                <option selected *ngFor="let item of Segmento_items" [value]=item.Id>{{item.Segmento}}</option>
             </select>
         </div>
         <div class="col s12 input-field">
@@ -85,11 +85,19 @@
             <label for="Marcas">Marcas</label>
         </div>
 
+        <!--Combobox que traera la informacion de la tabla Mercado-->
+        <div class="col s6 ">
+            <label for="Mercado">Mercado</label>
+            <select #Mercado="ngModel" name="Mercado" [(ngModel)]="cliente.Mercado" class="custom-select">
+                <option selected *ngFor="let item of Pais_items" [value]=item.Id>{{item.Pais}}</option>
+            </select>
+        </div>
+
         <!--Combobox que traera la informacion de la tabla PaisFacturacion-->
         <div class="col s6 ">
             <label for="PaisFacturacion">Pais de facturación</label>
             <select #PaisFacturacion="ngModel" name="PaisFacturacion" [(ngModel)]="cliente.PaisFacturacion" class="custom-select">
-                <option selected *ngFor="let item of Pais_items" value="{{item.Id}}">{{item.Pais}}{{item.Id}}</option>
+                <option selected *ngFor="let item of Pais_items" [value]=item.Id>{{item.Pais}}</option>
             </select>
         </div>
 

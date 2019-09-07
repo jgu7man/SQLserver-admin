@@ -95,3 +95,5 @@ router.post('/updateLineaProducto', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

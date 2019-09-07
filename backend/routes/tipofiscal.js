@@ -93,3 +93,5 @@ router.post('/updateTipoFiscal', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

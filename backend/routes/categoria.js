@@ -86,7 +86,7 @@ router.post('/updateCategoria', function(req, res, next) {
             }
             var data = {};
             data = result.recordset;
-            console.log(data);
+            console.log('Editado');
             // Se puede personalizar el mensaje más no el tipo
             return res.status(200).send({
                 mensaje: 'Categoria editada con éxito',
@@ -95,3 +95,5 @@ router.post('/updateCategoria', function(req, res, next) {
         }
     );
 });
+
+module.exports = router;

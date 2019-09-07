@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteModel } from 'src/app/models/cliente.model';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { AlertaService } from '../../../../../services/alerta.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agregar-cliente',
@@ -18,9 +19,10 @@ export class AgregarClienteComponent implements OnInit {
   public Segmento_items = []
   constructor(
     private _mant: MantenimientoService,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private router: Router
   ) {
-    this.cliente = new ClienteModel(0,'','',0,'','','',0,'','','',0,'','',0,0,'','',0,0,0)
+    this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1)
    }
 
   ngOnInit() {
@@ -39,8 +41,17 @@ export class AgregarClienteComponent implements OnInit {
   }
 
   onSubmit() {
+    this.cliente.LineaProducto = +this.cliente.LineaProducto
+    this.cliente.Pais = +this.cliente.Pais
+    this.cliente.TipoRegistro = +this.cliente.TipoRegistro
+    this.cliente.TipoIndustria = +this.cliente.TipoIndustria
+    this.cliente.Segmento = +this.cliente.Segmento
+    this.cliente.Mercado = +this.cliente.Mercado
+    this.cliente.PaisFacturacion = +this.cliente.PaisFacturacion
+    console.log(this.cliente);
     this._mant.saveData('Cliente', this.cliente).subscribe(res => {
       this._alerta.setAlerta(res)
+      this.router.navigate(['/dashadmin/mantenimiento/Cliente'])
     })
   }
 

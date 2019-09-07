@@ -31,7 +31,7 @@ export class AdminBorrarComponent implements OnInit {
   }
 
   onSubmit() {
-    this._mant.deleteUser(this.tabla, this.idToDel).subscribe(res => {
+    this._mant.deleteData(this.tabla, this.idToDel).subscribe(res => {
       $('admin-borrar').fadeToggle()
       this._alerta.setAlerta(res)
     })

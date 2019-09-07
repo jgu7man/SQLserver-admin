@@ -37,7 +37,7 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   onSubmit() {
-    this._mant.saveData('Categoria', this.categoria).subscribe(res => {
+    this._mant.updateData('Categoria', this.categoria).subscribe(res => {
       this._alerta.setAlerta(res)
     })
   }

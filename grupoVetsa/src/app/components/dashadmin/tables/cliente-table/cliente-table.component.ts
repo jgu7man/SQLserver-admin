@@ -10,18 +10,13 @@ export class ClienteTableComponent implements OnInit {
 
   @Input() clientes
   public idSelected
-  public tabla
+  public tabla = 'Cliente'
   constructor(
     private _borrar: BorrarService,
   ) {}
 
   ngOnInit() {
     
-  }
-
-  onChangeRol(id) {
-    $('change-rol').fadeToggle()
-    this.idSelected = id
   }
 
   toDelete(id) {
