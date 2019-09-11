@@ -16,6 +16,7 @@ export class AddUsuarioComponent implements OnInit {
   constructor(
     private _mant: MantenimientoService,
     private _alerta: AlertaService,
+    private router: Router
   ) {
     this.usuario = new UsuarioModel(0,0,'','','','',0,0)
    }
@@ -31,6 +32,7 @@ export class AddUsuarioComponent implements OnInit {
     this.usuario.RolId = +this.usuario.RolId
     this._mant.saveData('Usuario', this.usuario).subscribe(res => {
       this._alerta.setAlerta(res)
+      this.router.navigate(['/dashadmin/mantenimiento/Usuario'])
     })
   }
 

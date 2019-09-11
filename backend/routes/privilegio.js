@@ -133,12 +133,15 @@ router.get('/getRolPrivilegioTabla', async function(req, res, next) {
             var privilegios = [];
             let privs = await request.query(`SELECT * FROM Rol_Privilegio WHERE RolId = ${rol.Id}`);
 
+            console.log(privs.recordset);
+
             // OBTENER LOS NOMBRE DE PRIVILEGIOS POR CADA ID DE PRIVILEGIO
             await privs.recordset.forEach(async priv => {
+                console.log(priv);
                 let privilegio = await request.query(`SELECT * FROM Privilegio WHERE Id = ${priv.PrivilegioId}`);
                 return privilegios.push({
                     privilegio: privilegio.recordset[0].Privilegio,
-                    id: priv.PrivilegioId
+                    id: priv.Id
                 });
             });
             await waitFor(1000);
@@ -178,7 +181,6 @@ router.get('/getPrivilegiosByRol/:id?', async function(req, res, next) {
         await waitFor(1000);
 
         // ENVIA ROL CON RESPECTIVOS PRIVILEGIOS
-        console.log(privilegios);
         return res.send(privilegios);
 
     } catch (err) {}

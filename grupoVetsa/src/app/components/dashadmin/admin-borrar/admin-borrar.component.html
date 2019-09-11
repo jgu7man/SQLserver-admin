@@ -9,7 +9,7 @@
             <h5>BORRAR ITEM</h5>
         </div>
     </div>
-    <form action="#" onsubmit="return false" #changeRol="ngForm" (ngSubmit)="onSubmit()">
+    <form action="#" onsubmit="return false" #changeRol="ngForm">
         <div class="row">
             <div class="col s12">
                 <p>¿CONFIRMAS BORRAR ESTE ITEM?</p>
@@ -18,7 +18,7 @@
                 <button class="btn grey" (click)="onClose()">cancelar</button>
             </div>
             <div class="col s6 center">
-                <button class="btn" type="submit">BORRAR</button>
+                <button class="btn" (click)="onSubmit()">BORRAR</button>
             </div>
         </div>
     </form>

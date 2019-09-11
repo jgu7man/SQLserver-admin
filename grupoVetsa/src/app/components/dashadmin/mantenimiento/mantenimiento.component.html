@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="ruta">
         <div class="col s12">
             <p>
                 <button [disabled]="page == 1" (click)="previusPage(page)">Previa</button> Página: {{page}}

@@ -59,7 +59,8 @@ router.post('/saveUsuario', function(req, res, next) {
                         });
 
                     // SET ROL 
-                    var camposRol = 'Id, RolId, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+                    var camposRol = 'UserId, RolId, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
                     request.query(`
                     INSERT INTO User_Rol (${camposRol}) 
                     VALUES (
@@ -84,7 +85,7 @@ router.post('/saveUsuario', function(req, res, next) {
                 // RETORNA MENSAJE DE ÉXITO
                 return res.status(200).send({
                     mensaje: 'Usuario agregado con éxito',
-                    tipo: 'succsess'
+                    tipo: 'success'
                 });
 
             } else {
@@ -155,6 +156,7 @@ router.post('/updateUser_Rol', function(req, res, next) {
     const dateSplit = today.split('T');
     const date = dateSplit[0].toString();
 
+    console.log(body);
     request.query(
         `
         UPDATE User_Rol SET
@@ -167,15 +169,19 @@ router.post('/updateUser_Rol', function(req, res, next) {
         function(err, result) {
             if (err) {
                 console.log(err);
+                return res.status(200).send({
+                    mensaje: 'Error al asignar rol',
+                    tipo: 'warning'
+                });
             }
             var data = {};
             data = result.recordset;
+            return res.status(200).send({
+                mensaje: 'Rol asignado con éxito',
+                tipo: 'success'
+            });
         }
     );
-    return res.status(200).send({
-        mensaje: 'Rol asignado con éxito',
-        tipo: 'succsess'
-    });
 });
 
 router.post('/updateUsuario', function(req, res, next) {
@@ -208,7 +214,7 @@ router.post('/updateUsuario', function(req, res, next) {
             data = result.recordset;
             return res.status(200).send({
                 mensaje: 'Usuario editado con éxito',
-                tipo: 'succsess'
+                tipo: 'success'
             });
         }
     );
@@ -231,7 +237,7 @@ router.delete('/deleteUsuario/:id?', function(req, res, next) {
         data = result.recordset;
         return res.status(200).send({
             mensaje: 'Item elimiando con éxito',
-            tipo: 'succsess'
+            tipo: 'success'
         });
     });
 });

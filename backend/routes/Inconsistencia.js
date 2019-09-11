@@ -20,28 +20,32 @@ router.post('/saveInconsistencia', function(req, res, next) {
         var rec = result.recordset;
         var newId = rec[rec.length - 1].Id + 1;
 
+        console.log(body);
 
         // SAVE DATA 
         var campos = 'Id, FechaRegistro, FechaRecepcion, Cliente, HojaRuta, Proveedor, Documento, NumeroDocumento, Categoria, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+        console.log(campos);
+        console.log(body);
         request.query(`
         SET IDENTITY_INSERT Inconsistencia ON
             INSERT INTO Inconsistencia (${campos}) 
             VALUES (
-                ${newId},
-                '${date}',
-                '${body.FechaRecepcion}',
-                ${body.Cliente},
-                '${body.HojaRuta}',
-                '${body.Proveedor}',
-                '${body.Documento}',
-                ${body.NumeroDocumento},
-                '${body.Categoria}',
-                '${date}',
-                '${date}',
-                ${body.CreatedBy},
+                ${newId}, 
+                '${date}', 
+                '${body.FechaRecepcion}', 
+                ${body.Cliente}, 
+                '${body.HojaRuta}', 
+                '${body.Proveedor}', 
+                '${body.Documento}', 
+                '${body.NumeroDocumento}', 
+                '${body.Categoria}', 
+                '${date}', 
+                '${date}', 
+                ${body.CreatedBy}, 
                 ${body.ModifiedBy}
                 )
-                SET IDENTITY_INSERT Inconsistencia OFF
+        SET IDENTITY_INSERT Inconsistencia OFF
             `,
 
             function(err, result) {
@@ -56,6 +60,10 @@ router.post('/saveInconsistencia', function(req, res, next) {
                 var data = {};
                 data = result.recordset;
                 console.log(data);
+                return res.status(200).send({
+                    mensaje: 'Inconsistencia guardada con éxito',
+                    tipo: 'success',
+                });
 
             });
     });

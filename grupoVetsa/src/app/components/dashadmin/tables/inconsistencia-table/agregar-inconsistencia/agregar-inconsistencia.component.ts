@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InconsistenciaModel } from '../../../../../models/inconsistencia.model';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { AlertaService } from '../../../../../services/alerta.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agregar-inconsistencia',
@@ -20,12 +21,16 @@ export class AgregarInconsistenciaComponent implements OnInit {
   public year
   constructor(
     private _mant: MantenimientoService,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private router: Router
   ) {
     this.Inconsistencia = new InconsistenciaModel(0,'','',0,'',0,0,'',0,0,0)
    }
 
   ngOnInit() {
+    var user = JSON.parse(sessionStorage.getItem('gvlog'))
+    this.Inconsistencia.CreatedBy = user.UserId
+    this.Inconsistencia.ModifiedBy = user.UserId
     this.getTablas()
   }
 
@@ -36,14 +41,15 @@ export class AgregarInconsistenciaComponent implements OnInit {
     this._mant.getData('Categoria').subscribe( res => { this.Categoria_items = res })
   }
 
-  setDate() {
-    this.Inconsistencia.FechaRecepcion = `${this.year}-${this.month}-${this.day}`
-  }
 
   onSubmit() {
-    this.setDate()
+    this.Inconsistencia.Cliente = +this.Inconsistencia.Cliente
+    this.Inconsistencia.Categoria = +this.Inconsistencia.Categoria
+    this.Inconsistencia.Proveedor = +this.Inconsistencia.Proveedor
+    this.Inconsistencia.Documento = +this.Inconsistencia.Documento
     this._mant.saveData('Inconsistencia', this.Inconsistencia).subscribe(res => {
       this._alerta.setAlerta(res)
+      this.router.navigate(['dashadmin/mantenimiento/Inconsistencia'])
     })
   }
 

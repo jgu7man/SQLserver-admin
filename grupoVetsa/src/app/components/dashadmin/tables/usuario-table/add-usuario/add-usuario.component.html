@@ -19,7 +19,7 @@
         <div class="col s12">
             <select name="RolId" id="RolId" [(ngModel)]="usuario.RolId" #RolId="ngModel" required>
                 <option value="" disabled>Elige un rol</option>
-                <option *ngFor="let rol of roles" [value]="rol.RolId">{{rol.RolDescription}}</option>
+                <option *ngFor="let rol of roles" [value]="rol.Id">{{rol.RolDescription}}</option>
             </select>
         </div>
         <br>

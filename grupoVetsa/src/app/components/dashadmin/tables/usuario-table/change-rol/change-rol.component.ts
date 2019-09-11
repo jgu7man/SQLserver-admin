@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { Rol_UserModel } from 'src/app/models/rol_user.model';
+import { AlertaService } from '../../../../../services/alerta.service';
 
 @Component({
   selector: 'change-rol',
@@ -13,7 +14,8 @@ export class ChangeRolComponent implements OnInit {
   @Input() UserId
   public rol: Rol_UserModel
   constructor(
-    private _mant: MantenimientoService
+    private _mant: MantenimientoService,
+    private _alerta: AlertaService
   ) {
     this.rol = new Rol_UserModel(0, 0, 0, 0)
     
@@ -37,8 +39,8 @@ export class ChangeRolComponent implements OnInit {
     this.rol.UserId = this.UserId
     this.rol.RolId = +this.rol.RolId
     this._mant.updateData('User_Rol', this.rol).subscribe(res => {
-      console.log(res);
       $("change-rol").toggle()
+      this._alerta.setAlerta(res)
     })      
   }
 }

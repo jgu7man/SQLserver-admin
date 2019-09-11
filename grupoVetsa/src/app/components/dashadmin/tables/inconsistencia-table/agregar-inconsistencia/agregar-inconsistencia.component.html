@@ -1,21 +1,19 @@
 <form #AddInconsistenciaForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
     <div class="row">
 
-        <!-- <div class="col s12">
+        <div class="col s6">
             <label for="FechaRecepcion">Fecha Recepcion</label>
-            <input type="number" maxlength="2" name="day" id="day" [(ngModel)]="day" #day="ngModel" required>
-            <input type="number" maxlength="2" name="month" id="month" [(ngModel)]="month" #month="ngModel" required>
-            <input type="number" maxlength="4" name="year" id="year" [(ngModel)]="year" #year="ngModel" required>
-        </div> -->
+            <input type="date" name="day" id="day" [(ngModel)]="Inconsistencia.FechaRecepcion" #FechaRecepcion="ngModel" required>
+        </div>
 
         <!--Combobox que traera la informacion de la tabla Cliente-->
         <div class="col s6">
             <label for="Cliente">Cliente</label>
             <select name="Cliente" [(ngModel)]="Inconsistencia.Cliente" #Cliente="ngModel">
-                    <option selected *ngFor="let item of Cliente_items" value="{{item.ClienteId}}">{{item.GrupoEmpresarial}}</option>
+                    <option selected *ngFor="let item of Cliente_items" value="{{item.Id}}">{{item.GrupoEmpresarial}}</option>
                 </select>
         </div>
-        <div class="col s12 input-field">
+        <div class="col s6 input-field">
             <input type="text" name="HojaRuta" id="HojaRuta" [(ngModel)]="Inconsistencia.HojaRuta" #HojaRuta="ngModel" required>
             <label for="HojaRuta">Hoja de Ruta</label>
         </div>
@@ -23,18 +21,18 @@
         <div class="col s6">
             <label for="Proveedor">Proveedor</label>
             <select name="Proveedor" [(ngModel)]="Inconsistencia.Proveedor" #Proveedor="ngModel">
-                        <option selected *ngFor="let item of Proveedor_items" value="{{item.ProveedorId}}">{{item.Proveedor}}</option>
+                        <option selected *ngFor="let item of Proveedor_items" value="{{item.Id}}">{{item.Proveedor}}</option>
                     </select>
         </div>
         <!--Combobox que traera la informacion de la tabla Documento-->
         <div class="col s6">
             <label for="Documento">Documento</label>
             <select name="Documento" [(ngModel)]="Inconsistencia.Documento" #Documento="ngModel">
-                        <option selected *ngFor="let item of Documento_items" value="{{item.DocumentoId}}">{{item.Documento}}{{item.DocumentoId}}</option>
+                        <option selected *ngFor="let item of Documento_items" value="{{item.Id}}">{{item.Documento}}{{item.DocumentoId}}</option>
                     </select>
         </div>
 
-        <div class="col s12 input-field">
+        <div class="col s6 input-field">
             <input type="text" name="NumeroDocumento" id="NumeroDocumento" [(ngModel)]="Inconsistencia.NumeroDocumento" #NumeroDocumento="ngModel" required>
             <label for="NumeroDocumento">Numero de Documento</label>
         </div>
@@ -43,7 +41,7 @@
         <div class="col s6">
             <label for="Categoria">Categoria</label>
             <select name="Categoria" [(ngModel)]="Inconsistencia.Categoria" #Categoria="ngModel">
-                            <option selected *ngFor="let item of Categoria_items" value="{{item.CategoriaId}}">{{item.Categoria}}{{item.CategoriaId}}</option>
+                            <option selected *ngFor="let item of Categoria_items" value="{{item.Id}}">{{item.Categoria}}{{item.CategoriaId}}</option>
                         </select>
         </div>
         <div class="col s12 center">
