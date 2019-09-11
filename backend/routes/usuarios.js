@@ -4,9 +4,11 @@ var express = require('express');
 var router = express.Router();
 var sql = require('mssql');
 
+// GUARDAR USUARIO
 router.post('/saveUsuario', function(req, res, next) {
     const body = req.body;
     const request = new sql.Request();
+    // COMPRUEBA QUE EL USUARIO NO EXISTA
     request.query(`SELECT * FROM Usuario WHERE UserName = '${body.UserName}'`,
         function(err, result) {
             if (err) {
@@ -79,12 +81,14 @@ router.post('/saveUsuario', function(req, res, next) {
                     );
 
                 });
+                // RETORNA MENSAJE DE ÉXITO
                 return res.status(200).send({
                     mensaje: 'Usuario agregado con éxito',
                     tipo: 'succsess'
                 });
 
             } else {
+                // RETORNA MENSAJE DE NOMBRE DE USUARIO DUPLICADO
                 return res.status(200).send({
                     mensaje: 'Nombre de usuario repetido, por favor elige otro',
                     tipo: 'warning'
@@ -102,7 +106,6 @@ router.post('/login', function(req, res, next) {
         function(err, result) {
             if (err) { return next(err); }
             var user = result.recordset[0];
-            console.log(user);
             if (!user) {
                 return res.status(200).send({
                     mensaje: 'Usuario no encontrado',
@@ -114,16 +117,30 @@ router.post('/login', function(req, res, next) {
                     mensaje: 'Contraseña no válida'
                 });
             } else {
-                return res.status(200).send({
-                    tipo: 'success',
-                    mensaje: 'inicio de sesión exitoso',
-                    user: {
-                        UserId: user.Id,
-                        UserName: user.UserName,
-                        FirstName: user.FirstName,
-                        LastName: user.LastName
-                    }
-                });
+                console.log(user.Id);
+                request.query(`
+                SELECT * FROM User_Rol WHERE UserId = ${user.Id}
+                `,
+                    function(err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        var data = {};
+                        data = result.recordset[0];
+                        console.log(data);
+                        var rol = data.RolId;
+                        return res.status(200).send({
+                            tipo: 'success',
+                            mensaje: 'inicio de sesión exitoso',
+                            user: {
+                                UserId: user.Id,
+                                Rol: rol,
+                                UserName: user.UserName,
+                                FirstName: user.FirstName,
+                                LastName: user.LastName
+                            }
+                        });
+                    });
             }
         }
     );

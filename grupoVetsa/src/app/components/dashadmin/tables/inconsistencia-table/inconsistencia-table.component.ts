@@ -26,7 +26,7 @@ export class InconsistenciaTableComponent implements OnInit {
 
   toDelete(id) {
     $('admin-borrar').fadeToggle()
-    this._borrar.sendId(this.tabla, id)
+    this._borrar.sendId(id)
   }
 
 }

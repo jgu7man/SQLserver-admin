@@ -29,6 +29,14 @@ tr:hover .opciones {
     opacity: 1;
 }
 
+li.opcion i {
+    opacity: 1;
+}
+
+li.opcion:hover i {
+    opacity: 1;
+}
+
 .opciones i {
     width: 33%
 }

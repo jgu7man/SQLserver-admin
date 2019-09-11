@@ -18,7 +18,7 @@ export class SideBarComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.lista = this._sideBar.getList() as SideBarModel[]
+    // this.lista = this._sideBar.getList() as SideBarModel[]
   }
 
 }

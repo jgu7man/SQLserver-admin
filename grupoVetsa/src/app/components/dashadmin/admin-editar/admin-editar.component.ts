@@ -21,7 +21,7 @@ export class AdminEditarComponent implements OnInit {
     private _mant: MantenimientoService,
     private _sidebar: SideBarService
   ) {
-    this.listaTablas = this._sidebar.getList()
+    this.listaTablas = this._sidebar.getFullList()
     this._ruta.params.subscribe(ruta => {
       this.ruta = ruta['string']
       this.id = ruta['id']

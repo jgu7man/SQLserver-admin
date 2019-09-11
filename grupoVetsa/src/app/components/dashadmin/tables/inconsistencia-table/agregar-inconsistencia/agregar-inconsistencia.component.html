@@ -12,7 +12,7 @@
         <div class="col s6">
             <label for="Cliente">Cliente</label>
             <select name="Cliente" [(ngModel)]="Inconsistencia.Cliente" #Cliente="ngModel">
-                    <option selected *ngFor="let item of Cliente_items" value="{{item.ClienteId}}">{{item.Cliente}}{{item.ClienteId}}</option>
+                    <option selected *ngFor="let item of Cliente_items" value="{{item.ClienteId}}">{{item.GrupoEmpresarial}}</option>
                 </select>
         </div>
         <div class="col s12 input-field">
@@ -23,7 +23,7 @@
         <div class="col s6">
             <label for="Proveedor">Proveedor</label>
             <select name="Proveedor" [(ngModel)]="Inconsistencia.Proveedor" #Proveedor="ngModel">
-                        <option selected *ngFor="let item of Proveedor_items" value="{{item.ProveedorId}}">{{item.Proveedor}}{{item.ProveedorId}}</option>
+                        <option selected *ngFor="let item of Proveedor_items" value="{{item.ProveedorId}}">{{item.Proveedor}}</option>
                     </select>
         </div>
         <!--Combobox que traera la informacion de la tabla Documento-->

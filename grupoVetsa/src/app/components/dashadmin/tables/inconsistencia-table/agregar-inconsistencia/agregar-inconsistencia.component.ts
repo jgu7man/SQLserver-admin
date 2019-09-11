@@ -30,7 +30,7 @@ export class AgregarInconsistenciaComponent implements OnInit {
   }
 
   getTablas() {
-    this._mant.getData('Cliente').subscribe(res => { this.Cliente_items = res })
+    this._mant.getData('Cliente').subscribe(res => { this.Cliente_items = res; console.log(res); })
     this._mant.getData('Proveedor').subscribe(res => { this.Proveedor_items = res })
     this._mant.getData('Documento').subscribe(res => { this.Documento_items = res })
     this._mant.getData('Categoria').subscribe( res => { this.Categoria_items = res })

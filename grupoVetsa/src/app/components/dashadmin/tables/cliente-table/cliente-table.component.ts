@@ -21,7 +21,7 @@ export class ClienteTableComponent implements OnInit {
 
   toDelete(id) {
     $('admin-borrar').fadeToggle()
-    this._borrar.sendId( id)
+    this._borrar.sendId(id)
   }
 
 }

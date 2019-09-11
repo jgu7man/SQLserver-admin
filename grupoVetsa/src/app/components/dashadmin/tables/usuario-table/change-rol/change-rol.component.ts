@@ -22,6 +22,7 @@ export class ChangeRolComponent implements OnInit {
   ngOnInit() {
     this._mant.getData('Rol').subscribe(res => {
       this.roles = res
+      console.log(this.roles);
     })
   }
 

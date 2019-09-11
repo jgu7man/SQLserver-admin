@@ -2,22 +2,28 @@
     margin: 0 1em
 }
 
-#mant-menu,
-#report-menu {
+.list-menu {
     position: absolute;
-    width: 100vw;
+    /* width: 100vw; */
     background: #fff;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     display: none;
     z-index: 5;
 }
 
-.collection-item {
-    cursor: pointer
+.collection-item button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left
 }
 
 .collection-item:hover {
     background: #ccc;
     transition: all .2s;
+}
+
+.collection-item:hover button {
     font-weight: 900;
 }

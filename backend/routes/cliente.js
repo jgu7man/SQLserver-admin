@@ -24,8 +24,6 @@ router.post('/saveCliente', function(req, res, next) {
             newId = lastId + 1;
         }
 
-        console.log(body);
-
         // SAVE DATA CLIENTE
         var campos = 'Id, GrupoEmpresarial, RegistroTributario, TipoRegistro, Direccion, WebPage, Actividad, LineaProducto, Vision, Mision, Valores, Pais, Telefono, Industria, TipoIndustria, Segmento, RSE, Marcas, Mercado, PaisFacturacion, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
@@ -181,6 +179,63 @@ router.post('/updateCliente', function(req, res, next) {
             });
         }
     );
+});
+
+router.get('/getCliente', function(req, res, next) {
+    // var tabla = req.params.tabla;
+    var request = new sql.Request();
+    request.query('SELECT * FROM Cliente', function(err, result) {
+        if (err) {
+            return next(err);
+        }
+        var data = {};
+        data = result.recordset;
+
+        var clientes = [];
+        var Pais;
+        var TipoRegistro;
+        data.forEach(doc => {
+            (async function() {
+                try {
+                    let Pais = await request
+                        .query(`SELECT * FROM Pais WHERE Id = ${doc.Pais}`);
+                    console.log(Pais);
+
+
+
+
+                    // LISTA DE CLIENTES
+                    clientes.push({
+                        GrupoEmpresarial: doc.GrupoEmpresarial,
+                        RegistroTributario: doc.RegistroTributario,
+                        TipoRegistro: doc.TipoRegistro,
+                        Direccion: doc.Direccion,
+                        WebPage: doc.WebPage,
+                        Actividad: doc.Actividad,
+                        LineaProducto: doc.LineaProducto,
+                        Vision: doc.Vision,
+                        Mision: doc.Mision,
+                        Valores: doc.Valores,
+                        Pais: Pais,
+                        Telefono: doc.Telefono,
+                        Industria: doc.Industria,
+                        TipoIndustria: doc.TipoIndustria,
+                        Segmento: doc.Segmento,
+                        RSE: doc.RSE,
+                        Marcas: doc.Marcas,
+                        Mercado: doc.Mercado,
+                        PaisFacturacion: doc.PaisFacturacion,
+                        ModifiedDate: doc.ModifiedDate,
+                        ModifiedBy: doc.ModifiedBy
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+                // console.log(clientes);
+            });
+        });
+        return res.send(clientes);
+    });
 });
 
 module.exports = router;

@@ -3,7 +3,7 @@
         <div class="col s10">
             <h5> {{tabla.name}} </h5>
         </div>
-        <div class="col s2">
+        <div class="col s2" *ngIf="ruta">
             <button class="btn light-blue darken-4" [routerLink]="['../../add/', ruta]" routerLinkActive="router-link-active">AGREGAR</button>
         </div>
     </div>
@@ -16,6 +16,7 @@
             <inconsistencia-table *ngSwitchCase="'Inconsistencia'" [inconsistencias]="response"></inconsistencia-table>
             <lineaproducto-table *ngSwitchCase="'LineaProducto'" [lineasProducto]="response"></lineaproducto-table>
             <pais-table *ngSwitchCase="'Pais'" [paises]="response"></pais-table>
+            <privilegio-table *ngSwitchCase="'Rol_Privilegio'"></privilegio-table>
             <proveedor-table *ngSwitchCase="'Proveedor'" [proveedores]="response"></proveedor-table>
             <rol-table *ngSwitchCase="'Rol'" [roles]="response"></rol-table>
             <segmento-table *ngSwitchCase="'Segmento'" [segmentos]="response"></segmento-table>
@@ -25,6 +26,23 @@
             <div *ngSwitchDefault>
                 <router-outlet></router-outlet>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <p>
+                <button [disabled]="page == 1" (click)="previusPage(page)">Previa</button> Página: {{page}}
+                <button [disabled]="disableNext" (click)="nextPage(page)">Siguiente</button>
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="!ruta" class="row valign-wrapper">
+        <div class="col s12">
+            <h5 class="center">
+                Elije una tabla para comenzar
+            </h5>
         </div>
     </div>
 </div>

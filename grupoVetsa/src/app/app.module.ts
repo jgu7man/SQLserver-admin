@@ -69,6 +69,9 @@ import { EditarUsuarioComponent } from './components/dashadmin/tables/usuario-ta
 import { BorrarUsuarioComponent } from './components/dashadmin/tables/usuario-table/borrar-usuario/borrar-usuario.component';
 import { AdminEditarComponent } from './components/dashadmin/admin-editar/admin-editar.component';
 import { AdminBorrarComponent } from './components/dashadmin/admin-borrar/admin-borrar.component';
+import { PrivilegioTableComponent } from './components/dashadmin/tables/privilegio-table/privilegio-table.component';
+import { AgregarPrivilegioComponent } from './components/dashadmin/tables/privilegio-table/agregar-privilegio/agregar-privilegio.component';
+import { EditarPrivilegioComponent } from './components/dashadmin/tables/privilegio-table/editar-privilegio/editar-privilegio.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +138,10 @@ import { AdminBorrarComponent } from './components/dashadmin/admin-borrar/admin-
     EditarUsuarioComponent,
     BorrarUsuarioComponent,
     AdminEditarComponent,
-    AdminBorrarComponent
+    AdminBorrarComponent,
+    PrivilegioTableComponent,
+    AgregarPrivilegioComponent,
+    EditarPrivilegioComponent
   ],
   imports: [
     BrowserModule,
