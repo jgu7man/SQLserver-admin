@@ -46,6 +46,7 @@ export class MantenimientoComponent implements OnInit {
 
   getDataTable(ruta) {
     this._mant.getTabla(ruta).subscribe(res => {
+      console.log(res.data);
           this.response = res.data
           this.page = res.page
         })

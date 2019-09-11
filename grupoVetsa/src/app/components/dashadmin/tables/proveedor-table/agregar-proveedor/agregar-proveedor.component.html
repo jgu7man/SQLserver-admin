@@ -12,11 +12,11 @@
         <div class="col s6">
             <label for="TipoIdentificador">Tipo Identificador</label>
             <select #TipoIdentificador="ngModel" [(ngModel)]="proveedor.TipoIdentificador" name="TipoIdentificador" id="TipoIdentificador">
-                <option value=""></option>
+                <option *ngFor="let item of TipoFiscal_items" value="{{item.Id}}"> {{item.TipoFiscal}}</option>
             </select>
         </div>
         <!--Combobox que traera la informacion de la tabla GrupoPersona-->
-        <div class="col s12">
+        <div class="col s6">
             <label for="GrupoPersona">Grupo Persona</label>
             <select #GrupoPersona="ngModel" name="GrupoPersona" id="GrupoPersona" [(ngModel)]="proveedor.GrupoPersona">
                 <option *ngFor="let item of GrupoPersona_items" value="{{item.Id}}"> {{item.GrupoPersona}}</option>
@@ -27,7 +27,7 @@
         <div class="col s6">
             <label for="Cliente">Cliente</label>
             <select name="Cliente" #Cliente="ngModel" [(ngModel)]="proveedor.Cliente ">
-                <option selected *ngFor="let item of Cliente_items " value="{{item.Id}} ">{{item.Cliente}}</option>
+                <option selected *ngFor="let item of Cliente_items " value="{{item.Id}} ">{{item.GrupoEmpresarial}}</option>
             </select>
         </div>
         <!--Combobox que traera la informacion de la tabla Pais-->
