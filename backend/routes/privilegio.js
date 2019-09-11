@@ -52,7 +52,6 @@ router.post('/savePrivilegio', function(req, res, next) {
                 }
                 var data = {};
                 data = result.recordset;
-                console.log(data);
                 return res.status(200).send({
                     mensaje: 'Privilegio agregada con éxito',
                     tipo: 'succsess'
@@ -78,7 +77,6 @@ router.post('/saveRol_Privilegio', function(req, res, next) {
             var lastId = rec[rec.length - 1].Id;
             newId = lastId + 1;
         }
-        console.log(body);
 
         // SAVE DATA
         var campos = 'RolId, PrivilegioId, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy, Id';
@@ -108,7 +106,6 @@ router.post('/saveRol_Privilegio', function(req, res, next) {
                 }
                 var data = {};
                 data = result.recordset;
-                console.log(data);
                 return res.status(200).send({
                     mensaje: 'Privilegio agregada con éxito',
                     tipo: 'succsess'
@@ -133,11 +130,9 @@ router.get('/getRolPrivilegioTabla', async function(req, res, next) {
             var privilegios = [];
             let privs = await request.query(`SELECT * FROM Rol_Privilegio WHERE RolId = ${rol.Id}`);
 
-            console.log(privs.recordset);
 
             // OBTENER LOS NOMBRE DE PRIVILEGIOS POR CADA ID DE PRIVILEGIO
             await privs.recordset.forEach(async priv => {
-                console.log(priv);
                 let privilegio = await request.query(`SELECT * FROM Privilegio WHERE Id = ${priv.PrivilegioId}`);
                 return privilegios.push({
                     privilegio: privilegio.recordset[0].Privilegio,
@@ -165,6 +160,7 @@ router.get('/getRolPrivilegioTabla', async function(req, res, next) {
 
 router.get('/getPrivilegiosByRol/:id?', async function(req, res, next) {
     const RolId = req.params.id;
+    console.log(RolId);
     const request = new sql.Request();
     const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -176,6 +172,7 @@ router.get('/getPrivilegiosByRol/:id?', async function(req, res, next) {
 
         // OBTENER LOS PERMISOS POR ID
         await privs.recordset.forEach(async priv => {
+            console.log(priv);
             return privilegios.push(priv.PrivilegioId);
         });
         await waitFor(1000);

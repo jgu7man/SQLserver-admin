@@ -10,13 +10,14 @@ router.post('/saveUsuario', function(req, res, next) {
     const request = new sql.Request();
     // COMPRUEBA QUE EL USUARIO NO EXISTA
     request.query(`SELECT * FROM Usuario WHERE UserName = '${body.UserName}'`,
-        function(err, result) {
+        function(err, result, next) {
             if (err) {
                 console.log(err);
+                return next(err);
             }
             var data;
             data = result.recordset[0];
-            console.log(data);
+            // console.log(data);
             if (!data) {
 
                 // GET TODAY
@@ -26,8 +27,11 @@ router.post('/saveUsuario', function(req, res, next) {
 
                 // GET LAST INDEX
 
-                request.query('SELECT * FROM Usuario', function(err, result) {
-                    if (err) { return next(err); }
+                request.query('SELECT * FROM Usuario', function(err, result, next) {
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
                     var rec = result.recordset;
                     var newId = rec[rec.length - 1].Id + 1;
 
@@ -50,9 +54,10 @@ router.post('/saveUsuario', function(req, res, next) {
                         )
                     SET IDENTITY_INSERT Usuario OFF `,
 
-                        function(err, result) {
+                        function(err, result, next) {
                             if (err) {
                                 console.log(err);
+                                return next(err);
                             }
                             // var data = {};
                             data = result.recordset;
@@ -72,9 +77,10 @@ router.post('/saveUsuario', function(req, res, next) {
                         ${body.ModifiedBy}
                         ) `,
 
-                        function(err, result) {
+                        function(err, result, next) {
                             if (err) {
                                 console.log(err);
+                                return next(err);
                             }
                             var data = {};
                             data = result.recordset;
@@ -104,8 +110,11 @@ router.post('/login', function(req, res, next) {
     request.query(`
         SELECT * FROM Usuario WHERE UserName = '${body.UserName}'
     `,
-        function(err, result) {
-            if (err) { return next(err); }
+        function(err, result, next) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             var user = result.recordset[0];
             if (!user) {
                 return res.status(200).send({
@@ -118,17 +127,17 @@ router.post('/login', function(req, res, next) {
                     mensaje: 'Contraseña no válida'
                 });
             } else {
-                console.log(user.Id);
                 request.query(`
                 SELECT * FROM User_Rol WHERE UserId = ${user.Id}
                 `,
-                    function(err, result) {
+                    function(err, result, next) {
                         if (err) {
                             console.log(err);
+                            return next(err);
                         }
                         var data = {};
                         data = result.recordset[0];
-                        console.log(data);
+                        // console.log(data);
                         var rol = data.RolId;
                         return res.status(200).send({
                             tipo: 'success',
@@ -148,6 +157,7 @@ router.post('/login', function(req, res, next) {
 });
 
 router.post('/updateUser_Rol', function(req, res, next) {
+
     const body = req.body;
     const request = new sql.Request();
 
@@ -156,7 +166,6 @@ router.post('/updateUser_Rol', function(req, res, next) {
     const dateSplit = today.split('T');
     const date = dateSplit[0].toString();
 
-    console.log(body);
     request.query(
         `
         UPDATE User_Rol SET
@@ -166,9 +175,10 @@ router.post('/updateUser_Rol', function(req, res, next) {
         WHERE UserId = ${body.UserId}
         `,
 
-        function(err, result) {
+        function(err, result, next) {
             if (err) {
                 console.log(err);
+                next(err);
                 return res.status(200).send({
                     mensaje: 'Error al asignar rol',
                     tipo: 'warning'
@@ -206,9 +216,10 @@ router.post('/updateUsuario', function(req, res, next) {
         WHERE Id = ${body.Id}
         `,
 
-        function(err, result) {
+        function(err, result, next) {
             if (err) {
                 console.log(err);
+                return next(err);
             }
             var data = {};
             data = result.recordset;
@@ -221,10 +232,8 @@ router.post('/updateUsuario', function(req, res, next) {
 });
 
 router.delete('/deleteUsuario/:id?', function(req, res, next) {
-    console.log(req.params);
     var tabla = req.params.tabla;
     var id = parseInt(req.params.id);
-    console.log(id);
     var request = new sql.Request();
     request.query(`
     DELETE FROM Usuario WHERE Id = ${id}
