@@ -22,7 +22,6 @@ export class AdminTopAreaComponent implements OnInit {
   ngOnInit() {
     this._permisos.getPermisos(this.usuario.Rol).subscribe(res => {
       this.permisos = res
-      console.log(res);
     })
   }
 

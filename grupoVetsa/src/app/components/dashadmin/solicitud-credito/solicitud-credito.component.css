@@ -1,0 +1,5 @@
+#solicitud {
+    top: 20em;
+    max-height: 95vh;
+    overflow-y: auto;
+}

@@ -17,7 +17,8 @@ const routes: Routes = [
     { path: 'add/:string', component: AdminAddComponent },
     { path: 'editar/:string/:id', component: AdminEditarComponent },
     { path: 'borrar/:string/:id', component: AdminBorrarComponent},
-    { path: 'reportes', component: ReportesComponent }
+    { path: 'reportes', component: ReportesComponent },
+    { path: 'reportes/:string', component: ReportesComponent }
   ]}
 ];
 

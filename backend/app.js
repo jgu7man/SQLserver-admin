@@ -38,7 +38,8 @@ var segmento = require('./routes/segmento');
 var tipofiscal = require('./routes/tipofiscal');
 var tipoindustria = require('./routes/tipoindustria');
 var privilegio = require('./routes/privilegio');
-var llavesforaneas = require('./routes/llavesforaneas');
+var solicitud = require('./routes/solicitud');
+
 
 
 app.use('/', tablas);
@@ -56,7 +57,7 @@ app.use('/', segmento);
 app.use('/', tipofiscal);
 app.use('/', tipoindustria);
 app.use('/', privilegio);
-app.use('/', llavesforaneas);
+app.use('/', solicitud);
 
 
 

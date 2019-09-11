@@ -12,17 +12,12 @@ router.get('/getData/:tabla?', async function(req, res, next) {
     var resultados = [];
 
     let result1 = await request.query(`SELECT * FROM ${tabla}`);
-    await result1.recordset.forEach(async record => {
-        let result2 = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.CreatedBy}`);
-        record.CreatedBy = result2.recordset[0].UserName;
-        console.log(record);
-        return resultados.push(record);
-    });
 
+    var data = result1.recordset;
     await waitFor(1000);
 
     // var data;
-    res.send(resultados);
+    res.status(200).send(data);
 });
 
 router.get('/getTabla/:tabla?', async function(req, res, next) {

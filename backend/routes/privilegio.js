@@ -160,7 +160,6 @@ router.get('/getRolPrivilegioTabla', async function(req, res, next) {
 
 router.get('/getPrivilegiosByRol/:id?', async function(req, res, next) {
     const RolId = req.params.id;
-    console.log(RolId);
     const request = new sql.Request();
     const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -172,7 +171,6 @@ router.get('/getPrivilegiosByRol/:id?', async function(req, res, next) {
 
         // OBTENER LOS PERMISOS POR ID
         await privs.recordset.forEach(async priv => {
-            console.log(priv);
             return privilegios.push(priv.PrivilegioId);
         });
         await waitFor(1000);

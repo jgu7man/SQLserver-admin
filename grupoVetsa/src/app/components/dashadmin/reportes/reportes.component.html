@@ -1,3 +1,12 @@
-<p>
-  reportes works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h5>REPORTE</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div [ngSwitch]="ruta">
+            <solicitudes-table *ngSwitchCase="'Solicitudes'"></solicitudes-table>
+        </div>
+    </div>
+</div>

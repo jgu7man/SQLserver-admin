@@ -1,0 +1,72 @@
+<h5>CLIENTES POR CRÉDITO</h5>
+<table class="bordered">
+    <thead>
+        <tr>
+            <th>Fecha Creacion</th>
+            <th>Cliente</th>
+            <th>Pais</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Usuario Creo</th>
+            <th>Tipo Pago</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of creditos">
+
+
+            <td> {{item.CreatedDate}} </td>
+            <td> {{item.GrupoEmpresarial}} </td>
+            <td> {{item.Pais}} </td>
+            <td> {{item.Direccion}} </td>
+            <td> {{item.Telefono}} </td>
+            <td> {{item.CreatedBy}} </td>
+            <td>
+                <!-- <button (click)="onCredit(item.Id)">Solicitar Crédito</button> -->
+            </td>
+            <td class="opciones">
+                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Cliente', item.Id]"></i>
+                <!-- <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i> -->
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h5>CLIENTES POR EFECTIVO</h5>
+<table class="bordered">
+    <thead>
+        <tr>
+            <th>Fecha Creacion</th>
+            <th>Cliente</th>
+            <th>Pais</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Usuario Creo</th>
+            <th>Tipo Pago</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of efectivos">
+
+            <!-- <td>
+                <input (change)="onSelect(item.Id)" type="checkbox" name="Select" id="{{item.Id}}">
+                <label for="{{item.Id}}" style="opacity: 0">{{item.Id}}</label>
+            </td> -->
+            <td> {{item.CreatedDate}} </td>
+            <td> {{item.GrupoEmpresarial}} </td>
+            <td> {{item.Pais}} </td>
+            <td> {{item.Direccion}} </td>
+            <td> {{item.Telefono}} </td>
+            <td> {{item.CreatedBy}} </td>
+            <td>
+                <!-- <button (click)="onCredit(item.Id)">Solicitar Crédito</button> -->
+            </td>
+            <td class="opciones">
+                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Cliente', item.Id]"></i>
+                <!-- <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i> -->
+            </td>
+        </tr>
+    </tbody>
+</table>

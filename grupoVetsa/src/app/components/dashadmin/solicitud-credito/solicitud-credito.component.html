@@ -1,0 +1,70 @@
+<div class="container pop-up" id="solicitud">
+    <div class="row">
+        <div class="col s12">
+            <i class="fas fa-times" (click)="onClose()"></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5 class="center">SOLICITUD DE CRÉDITO</h5>
+        </div>
+    </div>
+    <form #AddSolicitudForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col s12 ">
+                Solicitud para cliente: {{cliente}}
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="TramitesMensualesEsperados" id="TramitesMensualesEsperados" [(ngModel)]="Solicitud.TramitesMensualesEsperados" #TramitesMensualesEsperados="ngModel" required>
+                <label for="TramitesMensualesEsperados">Tramites Mensuales Esperados</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="ProyeccionCM1Mensual" id="ProyeccionCM1Mensual" [(ngModel)]="Solicitud.ProyeccionCM1Mensual" #ProyeccionCM1Mensual="ngModel" required>
+                <label for="ProyeccionCM1Mensual">Proyeccion CM1 Mensual</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="ProyeccionVolumenMensual" id="ProyeccionVolumenMensual" [(ngModel)]="Solicitud.ProyeccionVolumenMensual" #Email="ngModel" required>
+                <label for="ProyeccionVolumenMensual">Proyeccion Volumen Mensual</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="number" name="MontoSolicitado" id="MontoSolicitado" [(ngModel)]="Solicitud.MontoSolicitado" #MontoSolicitado="ngModel" required>
+                <label for="MontoSolicitado">Monto Solicitado</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="number" name="TiempoCredito" id="TiempoCredito" [(ngModel)]="Solicitud.TiempoCredito" #TiempoCredito="ngModel" required>
+                <label for="TiempoCredito">Tiempo Credito</label>
+            </div>
+            <div class="col s12 input-field">
+                <label for="Moneda">Moneda</label>
+                <select name="Moneda" id="Moneda" [(ngModel)]="Solicitud.Moneda" #Moneda="ngModel">
+                  <option *ngFor="let item of Moneda_items" value="{{item.MonedaId}}">{{item.Moneda}}</option>
+                </select>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="Division" id="Division" [(ngModel)]="Solicitud.Division" #Division="ngModel" required>
+                <label for="Division">Division</label>
+            </div>
+            <div class="col s12 input-field">
+                <select name="TipoPago" [(ngModel)]="Solicitud.TipoPago" #TipoPago="ngModel">
+                <option selected *ngFor="let item of TipoPago_items" [value]="item.Id">{{item.GrupoEmpresarial}}</option>
+            </select>
+                <label for="TipoPago">TipoPago</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="FinanciamientoImpuestos" id="FinanciamientoImpuestos" [(ngModel)]="Solicitud.FinanciamientoImpuestos" #FinanciamientoImpuestos="ngModel" required>
+                <label for="FinanciamientoImpuestos">Financiamiento Impuestos</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="number" name="TiempoCreditoImpuesto" id="TiempoCreditoImpuesto" [(ngModel)]="Solicitud.TiempoCreditoImpuesto" #TiempoCreditoImpuesto="ngModel" required>
+                <label for="TiempoCreditoImpuesto">Tiempo Credito Impuesto</label>
+            </div>
+
+            <div class="col s12 center">
+                <button [disabled]="!AddSolicitudForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                    Agregar
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

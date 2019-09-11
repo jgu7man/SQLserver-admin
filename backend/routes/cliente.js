@@ -238,4 +238,48 @@ router.get('/getCliente', function(req, res, next) {
     });
 });
 
+router.post('/enviarEfectivo', async function(req, res, next) {
+    const body = req.body;
+    const request = new sql.Request();
+
+    console.log(body);
+
+    // GET TODAY
+    const today = new Date().toISOString();
+    const dateSplit = today.split('T');
+    const date = dateSplit[0].toString();
+
+    var campos = 'Id, Cliente, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+    try {
+        await body.clientes.forEach(async cliente => {
+            let result = await request.query(`SELECT * FROM Solicitud_Efectivo`);
+            var newId;
+            var rec = result.recordset;
+            if (rec.length == 0) { newId = 1; } else {
+                var lastId = rec[rec.length - 1].Id;
+                newId = lastId + 1;
+            }
+            await request.query(`
+                SET IDENTITY_INSERT Solicitud_Efectivo ON
+                INSERT INTO Solicitud_Efectivo (${campos})
+                VALUES (
+                    ${newId},
+                    ${cliente},
+                    '${date}',
+                    '${date}',
+                    ${body.CreatedBy},
+                    ${body.ModifiedBy}
+                )
+            `);
+
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+
+    return res.send("hola");
+});
+
 module.exports = router;
