@@ -16,14 +16,14 @@
             <inconsistencia-table *ngSwitchCase="'Inconsistencia'" [getPage]="page"></inconsistencia-table>
             <lineaproducto-table *ngSwitchCase="'LineaProducto'" [lineasProducto]="response"></lineaproducto-table>
             <pais-table *ngSwitchCase="'Pais'" [paises]="response"></pais-table>
-            <privilegio-table *ngSwitchCase="'Privilegio'" [privilegios]="'Privilegio'"></privilegio-table>
+            <privilegio-table *ngSwitchCase="'Privilegio'" [privilegios]="response"></privilegio-table>
             <proveedor-table *ngSwitchCase="'Proveedor'" [getPage]="page"></proveedor-table>
             <rol-privilegio *ngSwitchCase="'Rol_Privilegio'"></rol-privilegio>
             <rol-table *ngSwitchCase="'Rol'" [roles]="response"></rol-table>
             <segmento-table *ngSwitchCase="'Segmento'" [segmentos]="response"></segmento-table>
             <solicitudes-table *ngSwitchCase="'Solicitud'"></solicitudes-table>
             <tipofiscal-table *ngSwitchCase="'TipoFiscal'" [tiposFiscales]="response"></tipofiscal-table>
-            <tipoindustria-table *ngSwitchCase="'TipoIndsutria'" [tiposIndustria]="response"></tipoindustria-table>
+            <tipoindustria-table *ngSwitchCase="'TipoIndustria'" [tiposIndustria]="response"></tipoindustria-table>
             <usuario-table *ngSwitchCase="'Usuario'" [getPage]="page"></usuario-table>
             <div *ngSwitchDefault>
                 <router-outlet></router-outlet>

@@ -16,7 +16,13 @@ router.post('/savePrivilegio', function(req, res, next) {
 
     // GET LAST INDEX
     request.query('SELECT * FROM Privilegio', function(err, result) {
-        if (err) { return next(err); }
+        if (err) {
+            next(err.originalError.message);
+            return res.send({
+                mensaje: err.originalError.message,
+                tipo: 'warning'
+            });
+        }
         var rec = result.recordset;
         var newId;
         if (rec.length == 0) { newId = 1; } else {
@@ -43,7 +49,7 @@ router.post('/savePrivilegio', function(req, res, next) {
 
             function(err, result) {
                 if (err) {
-                    console.log(err);
+                    next(err.originalError.message);
                     return res.status(200).send({
                         mensaje: 'Hubo un error al guardar',
                         tipo: 'warning',
@@ -54,7 +60,7 @@ router.post('/savePrivilegio', function(req, res, next) {
                 data = result.recordset;
                 return res.status(200).send({
                     mensaje: 'Privilegio agregada con éxito',
-                    tipo: 'succsess'
+                    tipo: 'success'
                 });
             });
     });
@@ -97,7 +103,7 @@ router.post('/saveRol_Privilegio', function(req, res, next) {
 
             function(err, result) {
                 if (err) {
-                    console.log(err);
+                    next(err.originalError.message);
                     return res.status(200).send({
                         mensaje: 'Hubo un error al guardar',
                         tipo: 'warning',
@@ -108,7 +114,7 @@ router.post('/saveRol_Privilegio', function(req, res, next) {
                 data = result.recordset;
                 return res.status(200).send({
                     mensaje: 'Privilegio agregada con éxito',
-                    tipo: 'succsess'
+                    tipo: 'success'
                 });
             });
     });
@@ -153,7 +159,11 @@ router.get('/getRolPrivilegioTabla', async function(req, res, next) {
         // ENVÍA ARRAY DE TODOS LOS ROLES Y RESPECTIVOS PRIVILEGIOS
         return res.send(rol_privilegios);
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 
 });
@@ -178,7 +188,13 @@ router.get('/getPrivilegiosByRol/:id?', async function(req, res, next) {
         // ENVIA ROL CON RESPECTIVOS PRIVILEGIOS
         return res.send(privilegios);
 
-    } catch (err) {}
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
 
 });
 
@@ -205,7 +221,7 @@ router.post('/updatePrivilegio', function(req, res, next) {
 
         function(err, result) {
             if (err) {
-                console.log(err);
+                next(err.originalError.message);
                 // Se puede personalizar el mensaje más no el tipo
                 return res.status(200).send({
                     mensaje: 'Hubo un error al guardar',
@@ -218,7 +234,7 @@ router.post('/updatePrivilegio', function(req, res, next) {
             // Se puede personalizar el mensaje más no el tipo
             return res.status(200).send({
                 mensaje: 'Privilegio editada con éxito',
-                tipo: 'succsess'
+                tipo: 'success'
             });
         }
     );

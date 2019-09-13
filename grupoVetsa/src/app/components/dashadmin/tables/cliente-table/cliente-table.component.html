@@ -19,7 +19,7 @@
             <td> {{item.cliente.Pais}} </td>
             <td> {{item.cliente.Direccion}} </td>
             <td> {{item.cliente.Telefono}} </td>
-            <td> {{item.cliente.CreatedBy}} </td>
+            <td> {{item.cliente.UserName}} </td>
             <td>
                 <button [disabled]="item.solicitud" *ngIf="item.cliente.TipoPago == 1" (click)="onCredit(item.cliente.Id)">Solicitar Crédito</button>
             </td>

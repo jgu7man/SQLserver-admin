@@ -16,7 +16,13 @@ router.post('/saveTipoIndustria', function(req, res, next) {
 
     // GET LAST INDEX
     request.query('SELECT * FROM TipoIndustria', function(err, result) {
-        if (err) { return next(err); }
+        if (err) {
+            next(err.originalError.message);
+            return res.send({
+                mensaje: err.originalError.message,
+                tipo: 'warning'
+            });
+        }
         var rec = result.recordset;
         var newId = rec[rec.length - 1].Id + 1;
 
@@ -39,7 +45,7 @@ router.post('/saveTipoIndustria', function(req, res, next) {
 
             function(err, result) {
                 if (err) {
-                    console.log(err);
+                    next(err.originalError.message);
                     return res.status(200).send({
                         mensaje: 'Hubo un error al guardar',
                         tipo: 'warning',
@@ -48,10 +54,10 @@ router.post('/saveTipoIndustria', function(req, res, next) {
                 }
                 var data = {};
                 data = result.recordset;
-                console.log(data);
+                console.log('Tipo Industria guardado');
                 return res.status(200).send({
                     mensaje: 'Tipo Industria agregado con éxito',
-                    tipo: 'succsess'
+                    tipo: 'success'
                 });
             });
     });
@@ -79,7 +85,7 @@ router.post('/updateTipoIndustria', function(req, res, next) {
 
         function(err, result) {
             if (err) {
-                console.log(err);
+                next(err.originalError.message);
                 // Se puede personalizar el mensaje más no el tipo
                 return res.status(200).send({
                     mensaje: 'Hubo un error al guardar',
@@ -88,11 +94,11 @@ router.post('/updateTipoIndustria', function(req, res, next) {
             }
             var data = {};
             data = result.recordset;
-            console.log(data);
+            console.log('Tipo Industria Actualizado');
             // Se puede personalizar el mensaje más no el tipo
             return res.status(200).send({
                 mensaje: 'Tipo Industria editado con éxito',
-                tipo: 'succsess'
+                tipo: 'success'
             });
         }
     );

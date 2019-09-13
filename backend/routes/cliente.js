@@ -138,9 +138,9 @@ router.post('/updateCliente', function(req, res, next) {
 
         function(err, result) {
             if (err) {
-                console.log(err);
-                return res.status(200).send({
-                    mensaje: 'Hubo un error al guardar',
+                next(err.originalError.message);
+                return res.send({
+                    mensaje: err.originalError.message,
                     tipo: 'warning'
                 });
             }
@@ -149,68 +149,10 @@ router.post('/updateCliente', function(req, res, next) {
             console.log('cliente editado');
             return res.status(200).send({
                 mensaje: 'Cliente editada con éxito',
-                tipo: 'succsess'
+                tipo: 'success'
             });
         }
     );
-});
-
-router.get('/getCliente', function(req, res, next) {
-    // var tabla = req.params.tabla;
-    var request = new sql.Request();
-    request.query('SELECT * FROM Cliente', function(err, result) {
-        if (err) {
-            return next(err);
-        }
-        var data = {};
-        data = result.recordset;
-
-        var clientes = [];
-        var Pais;
-        var TipoRegistro;
-        data.forEach(doc => {
-            (async function() {
-                try {
-                    let Pais = await request
-                        .query(`SELECT * FROM Pais WHERE Id = ${doc.Pais}`);
-                    console.log(Pais);
-
-
-
-
-                    // LISTA DE CLIENTES
-                    clientes.push({
-                        GrupoEmpresarial: doc.GrupoEmpresarial,
-                        RegistroTributario: doc.RegistroTributario,
-                        TipoRegistro: doc.TipoRegistro,
-                        Direccion: doc.Direccion,
-                        WebPage: doc.WebPage,
-                        Actividad: doc.Actividad,
-                        LineaProducto: doc.LineaProducto,
-                        Vision: doc.Vision,
-                        Mision: doc.Mision,
-                        Valores: doc.Valores,
-                        Pais: Pais,
-                        Telefono: doc.Telefono,
-                        Industria: doc.Industria,
-                        TipoIndustria: doc.TipoIndustria,
-                        Segmento: doc.Segmento,
-                        RSE: doc.RSE,
-                        Marcas: doc.Marcas,
-                        Mercado: doc.Mercado,
-                        PaisFacturacion: doc.PaisFacturacion,
-                        ModifiedDate: doc.ModifiedDate,
-                        ModifiedBy: doc.ModifiedBy,
-                        TipoPago: doc.TipoPago
-                    });
-                } catch (err) {
-                    console.log(err);
-                }
-                // console.log(clientes);
-            });
-        });
-        return res.send(clientes);
-    });
 });
 
 router.post('/enviarEfectivo', async function(req, res, next) {
@@ -250,11 +192,20 @@ router.post('/enviarEfectivo', async function(req, res, next) {
 
         });
 
+        return res.send({
+            mensaje: 'Clientes enviados con éxito',
+            tipo: 'success'
+        });
+
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 
-    return res.send("hola");
+
 });
 
 

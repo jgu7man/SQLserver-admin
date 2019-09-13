@@ -16,6 +16,13 @@ router.post('/saveSolicitud', function(req, res, next) {
 
     // GET LAST INDEX
     request.query('SELECT * FROM Solicitud', function(err, result) {
+        if (err) {
+            next(err.originalError.message);
+            return res.send({
+                mensaje: err.originalError.message,
+                tipo: 'warning'
+            });
+        }
         var rec = result.recordset;
         var newId;
         if (rec.length == 0) { newId = 1; } else {
@@ -51,7 +58,7 @@ router.post('/saveSolicitud', function(req, res, next) {
 
             function(err, result) {
                 if (err) {
-                    console.log(err);
+                    next(err.originalError.message);
                     return res.status(200).send({
                         mensaje: 'Hubo un error al guardar',
                         tipo: 'warning',
@@ -67,6 +74,13 @@ router.post('/saveSolicitud', function(req, res, next) {
 
                 var camposCredito = 'Id, Cliente, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
                 request.query('SELECT * FROM Solicitud_Credito', function(err, result) {
+                    if (err) {
+                        next(err.originalError.message);
+                        return res.send({
+                            mensaje: err.originalError.message,
+                            tipo: 'warning'
+                        });
+                    }
                     var rec = result.recordset;
                     var newId;
                     if (rec.length == 0) { newId = 1; } else {
@@ -91,7 +105,7 @@ router.post('/saveSolicitud', function(req, res, next) {
             `,
                         async function(err, result) {
                             if (err) {
-                                console.log(err);
+                                next(err.originalError.message);
                                 return res.status(200).send({
                                     mensaje: 'Hubo un error al guardar',
                                     tipo: 'warning',

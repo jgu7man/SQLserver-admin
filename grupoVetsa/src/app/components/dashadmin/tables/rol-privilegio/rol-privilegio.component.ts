@@ -21,7 +21,6 @@ export class RolPrivilegioComponent implements OnInit {
 
    ngOnInit() {
      this._permisos.getPermisosTable().subscribe(res => {
-       console.log(res);
        this.roles_privilegios = res
     })
   }

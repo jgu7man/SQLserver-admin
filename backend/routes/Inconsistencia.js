@@ -16,7 +16,13 @@ router.post('/saveInconsistencia', function(req, res, next) {
 
     // GET LAST INDEX
     request.query('SELECT * FROM Inconsistencia', function(err, result) {
-        if (err) { return next(err); }
+        if (err) {
+            next(err.originalError.message);
+            return res.send({
+                mensaje: err.originalError.message,
+                tipo: 'warning'
+            });
+        }
         var rec = result.recordset;
         var newId = rec[rec.length - 1].Id + 1;
 
@@ -48,11 +54,10 @@ router.post('/saveInconsistencia', function(req, res, next) {
 
             function(err, result) {
                 if (err) {
-                    console.log(err);
-                    return res.status(200).send({
-                        mensaje: 'Hubo un error al guardar',
-                        tipo: 'warning',
-                        error: err
+                    next(err.originalError.message);
+                    return res.send({
+                        mensaje: err.originalError.message,
+                        tipo: 'warning'
                     });
                 }
                 var data = {};
@@ -94,9 +99,9 @@ router.post('/updateProveedor', function(req, res, next) {
 
         function(err, result) {
             if (err) {
-                console.log(err);
-                return res.status(200).send({
-                    mensaje: 'Hubo un error al guardar',
+                next(err.originalError.message);
+                return res.send({
+                    mensaje: err.originalError.message,
                     tipo: 'warning'
                 });
             }
@@ -105,7 +110,7 @@ router.post('/updateProveedor', function(req, res, next) {
             console.log(data);
             return res.status(200).send({
                 mensaje: 'Inconsistencia editada con éxito',
-                tipo: 'succsess'
+                tipo: 'success'
             });
         }
     );

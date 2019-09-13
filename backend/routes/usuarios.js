@@ -12,8 +12,11 @@ router.post('/saveUsuario', function(req, res, next) {
     request.query(`SELECT * FROM Usuario WHERE UserName = '${body.UserName}'`,
         function(err, result, next) {
             if (err) {
-                console.log(err);
-                return next(err);
+                next(err.originalError.message);
+                return res.send({
+                    mensaje: err.originalError.message,
+                    tipo: 'warning'
+                });
             }
             var data;
             data = result.recordset[0];
@@ -29,8 +32,11 @@ router.post('/saveUsuario', function(req, res, next) {
 
                 request.query('SELECT * FROM Usuario', function(err, result, next) {
                     if (err) {
-                        console.log(err);
-                        return next(err);
+                        next(err.originalError.message);
+                        return res.send({
+                            mensaje: err.originalError.message,
+                            tipo: 'warning'
+                        });
                     }
                     var rec = result.recordset;
                     var newId = rec[rec.length - 1].Id + 1;
@@ -56,8 +62,11 @@ router.post('/saveUsuario', function(req, res, next) {
 
                         function(err, result, next) {
                             if (err) {
-                                console.log(err);
-                                return next(err);
+                                next(err.originalError.message);
+                                return res.send({
+                                    mensaje: err.originalError.message,
+                                    tipo: 'warning'
+                                });
                             }
                             // var data = {};
                             data = result.recordset;
@@ -79,8 +88,11 @@ router.post('/saveUsuario', function(req, res, next) {
 
                         function(err, result, next) {
                             if (err) {
-                                console.log(err);
-                                return next(err);
+                                next(err.originalError.message);
+                                return res.send({
+                                    mensaje: err.originalError.message,
+                                    tipo: 'warning'
+                                });
                             }
                             var data = {};
                             data = result.recordset;
@@ -114,8 +126,11 @@ router.post('/login', function(req, res, next) {
     `,
         function(err, result, next) {
             if (err) {
-                console.log(err);
-                return next(err);
+                next(err.originalError.message);
+                return res.send({
+                    mensaje: err.originalError.message,
+                    tipo: 'warning'
+                });
             }
             var user = result.recordset[0];
             if (!user) {
@@ -134,8 +149,11 @@ router.post('/login', function(req, res, next) {
                 `,
                     function(err, result, next) {
                         if (err) {
-                            console.log(err);
-                            return next(err);
+                            next(err.originalError.message);
+                            return res.send({
+                                mensaje: err.originalError.message,
+                                tipo: 'warning'
+                            });
                         }
                         var data = {};
                         data = result.recordset[0];
@@ -181,8 +199,7 @@ router.post('/updateUser_Rol', function(req, res, next) {
 
         function(err, result, next) {
             if (err) {
-                console.log(err);
-                next(err);
+                next(err.originalError.message);
                 return res.status(200).send({
                     mensaje: 'Error al asignar rol',
                     tipo: 'warning'
@@ -222,8 +239,11 @@ router.post('/updateUsuario', function(req, res, next) {
 
         function(err, result, next) {
             if (err) {
-                console.log(err);
-                return next(err);
+                next(err.originalError.message);
+                return res.status(200).send({
+                    mensaje: 'Error al asignar rol',
+                    tipo: 'warning'
+                });
             }
             var data = {};
             data = result.recordset;

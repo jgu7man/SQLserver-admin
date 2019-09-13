@@ -39,11 +39,10 @@ router.post('/saveDocumento', function(req, res, next) {
 
             function(err, result) {
                 if (err) {
-                    console.log(err);
-                    return res.status(200).send({
-                        mensaje: 'Hubo un error al guardar',
-                        tipo: 'warning',
-                        error: err
+                    next(err.originalError.message);
+                    return res.send({
+                        mensaje: err.originalError.message,
+                        tipo: 'warning'
                     });
                 }
                 var data = {};
@@ -51,7 +50,7 @@ router.post('/saveDocumento', function(req, res, next) {
                 console.log(data);
                 return res.status(200).send({
                     mensaje: 'Usuario agregado con éxito',
-                    tipo: 'succsess'
+                    tipo: 'success'
                 });
             });
     });
@@ -79,10 +78,9 @@ router.post('/updateDocumento', function(req, res, next) {
 
         function(err, result) {
             if (err) {
-                console.log(err);
-                // Se puede personalizar el mensaje más no el tipo
-                return res.status(200).send({
-                    mensaje: 'Hubo un error al guardar',
+                next(err.originalError.message);
+                return res.send({
+                    mensaje: err.originalError.message,
                     tipo: 'warning'
                 });
             }
@@ -92,7 +90,7 @@ router.post('/updateDocumento', function(req, res, next) {
             // Se puede personalizar el mensaje más no el tipo
             return res.status(200).send({
                 mensaje: 'Documento editado con éxito',
-                tipo: 'succsess'
+                tipo: 'success'
             });
         }
     );

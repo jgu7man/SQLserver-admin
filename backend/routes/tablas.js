@@ -9,15 +9,21 @@ router.get('/getData/:tabla?', async function(req, res, next) {
     var tabla = req.params.tabla;
     var request = new sql.Request();
 
-    var resultados = [];
+    try {
+        var resultados = [];
+        let result1 = await request.query(`SELECT * FROM ${tabla}`);
+        var data = result1.recordset;
+        await waitFor(1000);
 
-    let result1 = await request.query(`SELECT * FROM ${tabla}`);
+        res.status(200).send(data);
 
-    var data = result1.recordset;
-    await waitFor(1000);
-
-    // var data;
-    res.status(200).send(data);
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
 });
 
 // RUTA PARA SOLICITAR TABLAS PAGINADAS
@@ -90,7 +96,11 @@ router.get('/nextPage/:tabla?/:page?', async function(req, res, next) {
         await waitFor(1000);
         res.send({ data, page: nextPage });
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.status(200).send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
@@ -128,7 +138,11 @@ router.get('/previusPage/:tabla?/:page?', async function(req, res, next) {
         await waitFor(1000);
         res.send({ data, page: previusPage });
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.status(200).send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
@@ -163,7 +177,7 @@ router.get('/selectArray/:tabla?/:id?', function(req, res, next) {
     var request = new sql.Request();
     request.query(`SELECT * FROM ${tabla} WHERE Id = ${id}`, function(err, result) {
         if (err) {
-            return next(err);
+            return next(err.originalError.message);
         }
         var data = {};
         data = result.recordset;
@@ -172,34 +186,23 @@ router.get('/selectArray/:tabla?/:id?', function(req, res, next) {
 
 });
 
-router.post('/deleteFK', async function(req, res, next) {
-    const body = req.body;
-    var request = new sql.Request();
-    try {
-        await request.query(`
-        DELETE FROM ${body.tabla1} WHERE ${body.campo1} = ${body.variable1}
-        DELETE FROM ${body.tabla2} WHERE ${body.campo2} = ${body.variable2}
-        `).then(result => {
-            console.log(result);
-        }).catch(err => {
-            console.log(err);
-        });
-    } catch (err) {}
-});
-
 router.delete('/delete/:tabla?/:id?', function(req, res, next) {
     var tabla = req.params.tabla;
     var id = parseInt(req.params.id);
     var request = new sql.Request();
     request.query(`DELETE FROM ${tabla} WHERE Id = ${id}`, function(err, result) {
         if (err) {
-            return next(err);
+            next(err.originalError.message);
+            return res.status(200).send({
+                mensaje: err.originalError.message,
+                tipo: 'warning'
+            });
         }
         var data = {};
         data = result.recordset;
         return res.status(200).send({
             mensaje: 'Item elimiando con éxito',
-            tipo: 'succsess'
+            tipo: 'success'
         });
     });
 });
