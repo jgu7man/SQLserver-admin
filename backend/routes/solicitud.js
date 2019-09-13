@@ -23,10 +23,6 @@ router.post('/saveSolicitud', function(req, res, next) {
             newId = lastId + 1;
         }
 
-        console.log(body);
-        console.log(date);
-        console.log(newId);
-
         // SAVE DATA
         var campos = 'Id, Cliente, TramitesMensualesEsperados, ProyeccionCM1Mensual, ProyeccionVolumenMensual, MontoSolicitado, TiempoCredito, Moneda, Division, TipoPago, FinanciamientoImpuestos, TiempoCreditoImpuesto, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
         request.query(`
@@ -93,7 +89,7 @@ router.post('/saveSolicitud', function(req, res, next) {
             )
         SET IDENTITY_INSERT Solicitud_Credito OFF
             `,
-                        function(err, result) {
+                        async function(err, result) {
                             if (err) {
                                 console.log(err);
                                 return res.status(200).send({
@@ -102,6 +98,15 @@ router.post('/saveSolicitud', function(req, res, next) {
                                     error: err
                                 });
                             }
+
+                            // ASIGNAR TIPOPAGO CLIENTE
+                            let result1 = await request.query(`
+                           UPDATE Cliente SET
+                           TipoPago = 1
+                            ModifiedDate = '${date}',
+                            ModifiedBy = ${body.ModifiedBy}
+                           WHERE Id = ${body.Cliente}
+                           `);
                         });
                 });
 
@@ -122,16 +127,19 @@ router.get('/getTablaSolicitud/:tabla?', async function(req, res, next) {
     try {
         let result1 = await request.query(` 
             SELECT * FROM ${tabla}
-            ORDER BY Id OFFSET 0 ROWS
+            ORDER BY Cliente OFFSET 0 ROWS
             FETCH NEXT 10 ROWS ONLY
         `);
 
         // CAMBIAR ID'S POR CLIENTES
         var data = [];
-        console.log(result1.recordset);
         await result1.recordset.forEach(async record => {
             // CAMBIAR CREATED BY
             let cliente = await request.query(`SELECT * FROM Cliente WHERE Id = ${record.Cliente}`);
+            let Usuario = await request.query(`SELECT * FROM Usuario WHERE Id = ${cliente.recordset[0].CreatedBy}`);
+            let Pais = await request.query(`SELECT * FROM Pais WHERE Id = ${cliente.recordset[0].Pais}`);
+            cliente.recordset[0].CreatedBy = Usuario.recordset[0].UserName;
+            cliente.recordset[0].Pais = Pais.recordset[0].Pais;
 
             // INSERTAR DATA DE NUEVO AL ARRAY ORIGINAL
             return data.push(cliente.recordset[0]);
@@ -139,7 +147,11 @@ router.get('/getTablaSolicitud/:tabla?', async function(req, res, next) {
         await waitFor(1000);
         res.send({ data, page: 1 });
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
@@ -154,7 +166,7 @@ router.get('/nextPageSolicitud/:tabla?/:page?', async function(req, res, next) {
     try {
         let result1 = await request.query(` 
             SELECT * FROM ${tabla}
-            ORDER BY Id OFFSET ${ofset} ROWS
+            ORDER BY Cliente OFFSET ${ofset} ROWS
             FETCH NEXT 10 ROWS ONLY
         `);
 
@@ -169,7 +181,11 @@ router.get('/nextPageSolicitud/:tabla?/:page?', async function(req, res, next) {
         await waitFor(1000);
         res.send({ data, page: nextPage });
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
@@ -186,7 +202,7 @@ router.get('/previusPageSolicitud/:tabla?/:page?', async function(req, res, next
     try {
         let result1 = await request.query(` 
             SELECT * FROM ${tabla}
-            ORDER BY Id OFFSET ${previusOfset} ROWS
+            ORDER BY Cliente OFFSET ${previusOfset} ROWS
             FETCH NEXT 10 ROWS ONLY
         `);
 
@@ -203,21 +219,13 @@ router.get('/previusPageSolicitud/:tabla?/:page?', async function(req, res, next
         await waitFor(1000);
         res.send({ data, page: previusPage });
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // router.post('/updateSolicitud', function(req, res, next) {

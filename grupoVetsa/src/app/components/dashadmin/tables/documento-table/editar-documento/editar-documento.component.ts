@@ -30,7 +30,6 @@ export class EditarDocumentoComponent implements OnInit {
   ngOnInit() {
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.documento = res
-      console.log(this.documento);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.documento.ModifiedBy = user.UserId

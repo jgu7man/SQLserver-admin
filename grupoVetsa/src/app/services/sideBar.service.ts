@@ -31,7 +31,8 @@ export class SideBarService {
     mantMenu: any[] = [
         { key: 'Usuario', name: 'Usuarios', permiso:1 },
         { key: 'Rol', name: 'Roles', permiso: 1 },
-        { key: 'Rol_Privilegio', name: 'Privilegios', permiso: 1 },
+        { key: 'Privilegio', name: 'Privilegios', permiso: 1 },
+        { key: 'Rol_Privilegio', name: 'Privilegios de Roles', permiso: 1 },
     ]
 
     provMenu: any[] = [
@@ -43,6 +44,7 @@ export class SideBarService {
 
     clientMenu: any[] = [
         { key: 'Cliente', name: 'Clientes', permiso: 3 },
+        { key: 'Solicitud', name: 'Solicitudes de clientes', permiso: 3 },
         { key: 'Segmento', name: 'Segmentos', permiso: 3 },
         { key: 'GrupoPersona', name: 'Grupos Persona', permiso: 3 },
         { key: 'TipoIndustria', name: 'Tipo Industria', permiso: 3 },
@@ -58,8 +60,7 @@ export class SideBarService {
         { key: 'Inconsistencia&Gestor', name: 'Inconsistencias por gestor', permiso: 5 },
         { key: 'Inconsistencia&Proveedor', name: 'Inconsistencias por proveedor', permiso: 5 },
         { key: 'Inconsistencia&Cliente', name: 'Inconsistencias por Cliente', permiso: 5 },
-        { key: 'Cliente&EFECTIVO', name: 'Clientes pago en Efectivo', permiso: 5 },
-        { key: 'Cliente&CREDITO', name: 'Clientes pagoa a Credito', permiso: 5 },
+        
         { key: 'ReporteSegmento', name: 'Reporte Segmento', permiso: 5 },
     ]
 

@@ -1,0 +1,28 @@
+<table class="bordered">
+    <thead>
+        <tr>
+            <th>Rol</th>
+            <th>Privilegio</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of roles_privilegios">
+
+            <td> {{item.Rol}} </td>
+            <td>
+                <ul class="privs">
+                    <li *ngFor="let priv of item.Privilegios"> {{priv.privilegio}} </li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li *ngFor="let priv of item.Privilegios" class="opcion">
+                        <i class="fas fa-trash rojo-text" (click)="toDelete(priv.id)"></i>
+                    </li>
+                </ul>
+
+            </td>
+        </tr>
+    </tbody>
+</table>

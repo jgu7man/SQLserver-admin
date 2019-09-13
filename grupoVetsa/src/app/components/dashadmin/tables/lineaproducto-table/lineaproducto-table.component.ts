@@ -19,11 +19,6 @@ export class LineaproductoTableComponent implements OnInit {
     
   }
 
-  onChangeRol(id) {
-    $('change-rol').fadeToggle()
-    this.idSelected = id
-  }
-
   toDelete(id) {
     $('admin-borrar').fadeToggle()
     this._borrar.sendId(id)

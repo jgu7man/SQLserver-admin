@@ -20,6 +20,7 @@ export class ClienteModel{
         public Marcas: string,
         public Mercado: number,
         public PaisFacturacion: number,
+        public TipoPago: number,
         public CreatedBy: number,
         public ModifiedBy: number
     ){}

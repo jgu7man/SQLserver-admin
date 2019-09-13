@@ -1,3 +1,14 @@
-<p>
-  editar-pais works!
-</p>
+<form #AddPaisForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" name="Pais" id="Pais" [(ngModel)]="pais.Pais" #RolDescription="ngModel" required>
+            <label for="Pais">Nombre del Pais</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddPaisForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Editar
+            </button>
+        </div>
+    </div>
+</form>

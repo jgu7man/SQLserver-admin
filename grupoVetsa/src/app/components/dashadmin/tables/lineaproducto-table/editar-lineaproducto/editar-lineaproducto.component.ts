@@ -29,7 +29,6 @@ export class EditarLineaproductoComponent implements OnInit {
   ngOnInit() {
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.lineaProducto = res
-      console.log(this.lineaProducto);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.lineaProducto.ModifiedBy = user.UserId

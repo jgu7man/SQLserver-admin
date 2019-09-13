@@ -5,6 +5,7 @@ import { SideBarService } from '../../../services/sideBar.service';
 import { SideBarModel } from 'src/app/models/sideBar.model';
 import { BorrarService } from '../../../services/borrar.service';
 import { Subject } from 'rxjs';
+import { AlertaService } from '../../../services/alerta.service';
 
 @Component({
   selector: 'mantenimiento',
@@ -24,6 +25,7 @@ export class MantenimientoComponent implements OnInit {
     private _ruta: ActivatedRoute,
     private _sidebar: SideBarService,
     private _mant: MantenimientoService,
+    private _alerta: AlertaService,
     private _borrar: BorrarService,
     private router: Router
   ) {
@@ -46,9 +48,12 @@ export class MantenimientoComponent implements OnInit {
 
   getDataTable(ruta) {
     this._mant.getTabla(ruta).subscribe(res => {
-          this.response = res.data
-          this.page = res.page
-        })
+      this.response = res.data
+      this.page = res.page
+      if (res.tipo) {
+        this._alerta.setAlerta(res)
+      }
+    })
   }
 
 

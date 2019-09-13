@@ -1,0 +1,41 @@
+<div class="container pop-up" id="contacto">
+    <div class="row">
+        <div class="col s12">
+            <i class="fas fa-times" (click)="onClose()"></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5 class="center">AGREGAR CONTACTO</h5>
+            <p>Agregar contacto a cliente: {{clienteName}}</p>
+        </div>
+    </div>
+    <form #AddContactoForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col s12 input-field">
+                <input type="text" name="Contacto" id="Contacto" [(ngModel)]="contacto.Contacto" #Contacto="ngModel" required>
+                <label for="Contacto">Contacto</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="Posicion" id="Posicion" [(ngModel)]="contacto.Posicion" #Posicion="ngModel" required>
+                <label for="Posicion">Posicion</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="Email" id="Email" [(ngModel)]="contacto.Email" #Email="ngModel" required>
+                <label for="Email">Email</label>
+            </div>
+            <div class="col s12 input-field">
+                <input type="text" name="Telefono" id="Telefono" [(ngModel)]="contacto.Telefono" #Telefono="ngModel" required>
+                <label for="Telefono">Telefono</label>
+            </div>
+
+
+            <div class="col s12 center">
+                <button [disabled]="!AddContactoForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+            </div>
+
+        </div>
+    </form>
+</div>

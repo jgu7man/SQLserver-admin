@@ -104,6 +104,8 @@ router.post('/saveUsuario', function(req, res, next) {
         });
 });
 
+// LOGIN
+
 router.post('/login', function(req, res, next) {
     const body = req.body;
     const request = new sql.Request();
@@ -155,6 +157,8 @@ router.post('/login', function(req, res, next) {
         }
     );
 });
+
+// CHANGE USER_ROL
 
 router.post('/updateUser_Rol', function(req, res, next) {
 
@@ -231,24 +235,96 @@ router.post('/updateUsuario', function(req, res, next) {
     );
 });
 
-router.delete('/deleteUsuario/:id?', function(req, res, next) {
-    var tabla = req.params.tabla;
-    var id = parseInt(req.params.id);
-    var request = new sql.Request();
-    request.query(`
-    DELETE FROM Usuario WHERE Id = ${id}
-    DELETE FROM User_Rol WHERE UserId = ${id}
-    `, function(err, result) {
-        if (err) {
-            return next(err);
-        }
-        var data = {};
-        data = result.recordset;
-        return res.status(200).send({
-            mensaje: 'Item elimiando con éxito',
-            tipo: 'success'
+
+// GET PRIMER PÁGINA DE USUARIOS
+router.get('/getUsuarioTable', async function(req, res, next) {
+    const request = new sql.Request();
+    try {
+        let query1 = await request.query(`
+            SELECT Usuario.Id, Usuario.UserName, Usuario.FirstName, Usuario.LastName, Rol.RolDescription
+            FROM ((Usuario
+            INNER JOIN User_Rol ON Usuario.Id = User_Rol.UserId)
+            INNER JOIN Rol ON User_Rol.RolId = Rol.Id)
+            ORDER BY Id OFFSET 0 ROWS
+            FETCH NEXT 10 ROWS ONLY
+        `);
+
+        return res.send({
+            data: query1.recordset,
+            page: 1
         });
-    });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+});
+
+
+// GET NEXT PÁGINA DE USUARIOS
+router.get('/getUsuarioTableNext/:page?', async function(req, res, next) {
+    var page = +req.params.page;
+    var nextPage = page + 1;
+    var ofset = page * 10;
+
+    const request = new sql.Request();
+    try {
+        let query1 = await request.query(`
+            SELECT Usuario.Id, Usuario.UserName, Usuario.FirstName, Usuario.LastName, Rol.RolDescription
+            FROM ((Usuario
+            INNER JOIN User_Rol ON Usuario.Id = User_Rol.UserId)
+            INNER JOIN Rol ON User_Rol.RolId = Rol.Id)
+            ORDER BY Id OFFSET ${ofset} ROWS
+            FETCH NEXT 10 ROWS ONLY
+        `);
+
+        return res.send({
+            data: query1.recordset,
+            page: nextPage
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+});
+
+
+router.get('/getUsuarioTablePrevious/:page?', async function(req, res, next) {
+    var page = +req.params.page;
+    var previusPage = page - 1;
+    var ofset = previusPage * 10;
+    var previusOfset = ofset - 10;
+
+    const request = new sql.Request();
+    try {
+        let query1 = await request.query(`
+            SELECT Usuario.Id, Usuario.UserName, Usuario.FirstName, Usuario.LastName, Rol.RolDescription
+            FROM ((Usuario
+            INNER JOIN User_Rol ON Usuario.Id = User_Rol.UserId)
+            INNER JOIN Rol ON User_Rol.RolId = Rol.Id)
+            ORDER BY Id OFFSET ${previusOfset} ROWS
+            FETCH NEXT 10 ROWS ONLY
+        `);
+
+        return res.send({
+            data: query1.recordset,
+            page: previusOfset
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
 });
 
 

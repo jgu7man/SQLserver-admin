@@ -8,7 +8,6 @@
             <th>Direccion</th>
             <th>Telefono</th>
             <th>Usuario Creo</th>
-            <th>Tipo Pago</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -22,16 +21,20 @@
             <td> {{item.Direccion}} </td>
             <td> {{item.Telefono}} </td>
             <td> {{item.CreatedBy}} </td>
-            <td>
-                <!-- <button (click)="onCredit(item.Id)">Solicitar Crédito</button> -->
-            </td>
             <td class="opciones">
+                <i class="fas fa-barcode" (click)="onCode(item.Id, item.GrupoEmpresarial)"></i>
+                <i class="fas fa-phone rojo-text" title="Agregar Contacto" (click)="onContact(item.Id, item.GrupoEmpresarial)"></i>
                 <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Cliente', item.Id]"></i>
-                <!-- <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i> -->
             </td>
         </tr>
     </tbody>
 </table>
+<div class="col s12">
+    <p>
+        <button [disabled]="pageCredito == 1" (click)="previusPageCredito(pageCredito)">Previa</button> Página: {{pageCredito}}
+        <button [disabled]="disableCredito" (click)="nextPageCredito(pageCredito)">Siguiente</button>
+    </p>
+</div>
 <br>
 <h5>CLIENTES POR EFECTIVO</h5>
 <table class="bordered">
@@ -43,30 +46,33 @@
             <th>Direccion</th>
             <th>Telefono</th>
             <th>Usuario Creo</th>
-            <th>Tipo Pago</th>
             <th>Opciones</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of efectivos">
 
-            <!-- <td>
-                <input (change)="onSelect(item.Id)" type="checkbox" name="Select" id="{{item.Id}}">
-                <label for="{{item.Id}}" style="opacity: 0">{{item.Id}}</label>
-            </td> -->
             <td> {{item.CreatedDate}} </td>
             <td> {{item.GrupoEmpresarial}} </td>
             <td> {{item.Pais}} </td>
             <td> {{item.Direccion}} </td>
             <td> {{item.Telefono}} </td>
             <td> {{item.CreatedBy}} </td>
-            <td>
-                <!-- <button (click)="onCredit(item.Id)">Solicitar Crédito</button> -->
-            </td>
+
             <td class="opciones">
-                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Cliente', item.Id]"></i>
-                <!-- <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i> -->
+                <i class="fas fa-barcode azul-text" title="Agregar CodigoSAP" (click)="onCode(item.Id, item.GrupoEmpresarial)"></i>
+                <i class="fas fa-phone rojo-text" title="Agregar Contacto" (click)="onContact(item.Id, item.GrupoEmpresarial)"></i>
+                <i class="fas fa-edit verde-text" title="Editar" [routerLink]="['../../editar/Cliente', item.Id]"></i>
             </td>
         </tr>
     </tbody>
 </table>
+<div class="col s12">
+    <p>
+        <button [disabled]="pageEfectivo == 1" (click)="previusPageEfectivo(pageEfectivo)">Previa</button> Página: {{pageEfectivo}}
+        <button [disabled]="disableEfectivo" (click)="nextPageEfectivo(pageEfectivo)">Siguiente</button>
+    </p>
+</div>
+
+<agregar-codigo-sap class="overlay" [clienteId]="clienteId" [clienteName]="clienteName" style="display: none"></agregar-codigo-sap>
+<agregar-contacto class="overlay" [clienteId]="clienteId" [clienteName]="clienteName" style="display: none"></agregar-contacto>

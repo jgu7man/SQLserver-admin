@@ -1,0 +1,29 @@
+<div class="pop-up" id="codigoSAP">
+    <div class="row">
+        <div class="col s12">
+            <i class="fas fa-times" (click)="onClose()"></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5 class="center">AGREGAR CÓDIGO SAP</h5>
+            <p>Código SAP de: {{clienteName}}</p>
+        </div>
+    </div>
+    <form #AddCodigoSAPForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+            <div class="col s12 input-field">
+                <input type="text" name="CodigoSap" id="CodigoSap" [(ngModel)]="codigoSap.CodigoSAP" #CodigoSap="ngModel" required>
+                <label for="CodigoSap">Codigo SAP</label>
+            </div>
+
+            <div class="col s12 center">
+                <button [disabled]="!AddCodigoSAPForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+            </div>
+
+        </div>
+    </form>
+</div>

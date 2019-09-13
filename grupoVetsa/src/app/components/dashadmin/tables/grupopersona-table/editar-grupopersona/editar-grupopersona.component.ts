@@ -29,7 +29,6 @@ export class EditarGrupopersonaComponent implements OnInit {
   ngOnInit() {
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.grupoPersona = res
-      console.log(this.grupoPersona);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.grupoPersona.ModifiedBy = user.UserId

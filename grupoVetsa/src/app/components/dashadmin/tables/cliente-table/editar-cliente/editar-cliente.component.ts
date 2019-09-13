@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteModel } from 'src/app/models/cliente.model';
 import { MantenimientoService } from '../../../../../services/mantenimiento.service';
 import { AlertaService } from '../../../../../services/alerta.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'editar-cliente',
@@ -22,13 +22,14 @@ export class EditarClienteComponent implements OnInit {
   constructor(
     private _mant: MantenimientoService,
     private _ruta: ActivatedRoute,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private router: Router
   ) {
     this._ruta.params.subscribe(ruta => {
       this.ruta = ruta['string']
       this.id = ruta['id']
     })
-    this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1)
+    this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1,1)
    }
 
   ngOnInit() {
@@ -51,8 +52,17 @@ export class EditarClienteComponent implements OnInit {
   }
 
   onSubmit() {
+    this.cliente.LineaProducto = +this.cliente.LineaProducto
+    this.cliente.Pais = +this.cliente.Pais
+    this.cliente.TipoRegistro = +this.cliente.TipoRegistro
+    this.cliente.TipoIndustria = +this.cliente.TipoIndustria
+    this.cliente.Segmento = +this.cliente.Segmento
+    this.cliente.Mercado = +this.cliente.Mercado
+    this.cliente.PaisFacturacion = +this.cliente.PaisFacturacion
+    this.cliente.TipoPago = +this.cliente.TipoPago
     this._mant.updateData('Cliente', this.cliente).subscribe(res => {
       this._alerta.setAlerta(res)
+      this.router.navigate(['/dashadmin/mantenimiento/Cliente'])
     })
   }
 

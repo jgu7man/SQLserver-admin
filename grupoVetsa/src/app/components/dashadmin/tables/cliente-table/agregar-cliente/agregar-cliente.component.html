@@ -101,6 +101,14 @@
             </select>
         </div>
 
+        <div class="col s6">
+            <label for="TipoPago">Tipo de pago</label>
+            <select name="TipoPago" id="TipoPago" [(ngModel)]="cliente.TipoPago" #TipoPag="ngModel">
+                <option value=0>Efectivo</option>
+                <option value=1>Credito</option>
+            </select>
+        </div>
+
         <div class="col s12 center">
             <button [disabled]="!AddClienteForm.form.valid" class="btn deep-purple darken-4" type="submit">
                 Agregar

@@ -29,7 +29,6 @@ export class EditarCategoriaComponent implements OnInit {
   ngOnInit() {
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.categoria = res
-      console.log(this.categoria);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.categoria.ModifiedBy = user.UserId

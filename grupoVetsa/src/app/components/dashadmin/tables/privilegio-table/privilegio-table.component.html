@@ -1,29 +1,20 @@
 <table class="bordered">
     <thead>
         <tr>
-            <th>Rol</th>
+            <th>Id</th>
             <th>Privilegio</th>
-            <!-- <th>Usuario Creo</th> -->
-
+            <th>Usuario Creo</th>
             <th>Opciones</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of roles_privilegios">
-
-            <td> {{item.Rol}} </td>
-            <td>
-                <ul class="privs">
-                    <li *ngFor="let priv of item.Privilegios"> {{priv.privilegio}} </li>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <li *ngFor="let priv of item.Privilegios" class="opcion">
-                        <i class="fas fa-trash rojo-text" (click)="toDelete(priv.id)"></i>
-                    </li>
-                </ul>
-
+        <tr *ngFor="let item of privilegios">
+            <td> {{item.Id}} </td>
+            <td> {{item.Privilegio}} </td>
+            <td> {{item.CreatedBy}} </td>
+            <td class="opciones">
+                <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Pais', item.Id]"></i>
+                <i class="fas fa-trash rojo-text" (click)="toDelete(item.Id)"></i>
             </td>
         </tr>
     </tbody>

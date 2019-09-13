@@ -3,33 +3,35 @@
         <div class="col s10">
             <h5> {{tabla.name}} </h5>
         </div>
-        <div class="col s2" *ngIf="ruta">
+        <div class="col s2" *ngIf="ruta && ruta!='Solicitud'">
             <button class="btn light-blue darken-4" [routerLink]="['../../add/', ruta]" routerLinkActive="router-link-active">AGREGAR</button>
         </div>
     </div>
     <div class="row">
         <div [ngSwitch]="ruta">
             <categoria-table *ngSwitchCase="'Categoria'" [categorias]="response"></categoria-table>
-            <cliente-table *ngSwitchCase="'Cliente'" [clientes]="response"></cliente-table>
+            <cliente-table *ngSwitchCase="'Cliente'" [getPage]="page"></cliente-table>
             <documento-table *ngSwitchCase="'Documento'" [documentos]="response"></documento-table>
             <grupopersona-table *ngSwitchCase="'GrupoPersona'" [gruposPersona]="response"></grupopersona-table>
-            <inconsistencia-table *ngSwitchCase="'Inconsistencia'" [inconsistencias]="response"></inconsistencia-table>
+            <inconsistencia-table *ngSwitchCase="'Inconsistencia'" [getPage]="page"></inconsistencia-table>
             <lineaproducto-table *ngSwitchCase="'LineaProducto'" [lineasProducto]="response"></lineaproducto-table>
             <pais-table *ngSwitchCase="'Pais'" [paises]="response"></pais-table>
-            <privilegio-table *ngSwitchCase="'Rol_Privilegio'"></privilegio-table>
-            <proveedor-table *ngSwitchCase="'Proveedor'" [proveedores]="response"></proveedor-table>
+            <privilegio-table *ngSwitchCase="'Privilegio'" [privilegios]="'Privilegio'"></privilegio-table>
+            <proveedor-table *ngSwitchCase="'Proveedor'" [getPage]="page"></proveedor-table>
+            <rol-privilegio *ngSwitchCase="'Rol_Privilegio'"></rol-privilegio>
             <rol-table *ngSwitchCase="'Rol'" [roles]="response"></rol-table>
             <segmento-table *ngSwitchCase="'Segmento'" [segmentos]="response"></segmento-table>
+            <solicitudes-table *ngSwitchCase="'Solicitud'"></solicitudes-table>
             <tipofiscal-table *ngSwitchCase="'TipoFiscal'" [tiposFiscales]="response"></tipofiscal-table>
             <tipoindustria-table *ngSwitchCase="'TipoIndsutria'" [tiposIndustria]="response"></tipoindustria-table>
-            <usuario-table *ngSwitchCase="'Usuario'" [usuarios]="response"></usuario-table>
+            <usuario-table *ngSwitchCase="'Usuario'" [getPage]="page"></usuario-table>
             <div *ngSwitchDefault>
                 <router-outlet></router-outlet>
             </div>
         </div>
     </div>
 
-    <div class="row" *ngIf="ruta">
+    <div class="row" *ngIf="ruta!='Solicitud' && ruta!='Usuario' && ruta!='Cliente' && ruta!='Inconsistencia' && ruta!='Proveedor' && ruta">
         <div class="col s12">
             <p>
                 <button [disabled]="page == 1" (click)="previusPage(page)">Previa</button> Página: {{page}}

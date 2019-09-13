@@ -37,7 +37,6 @@ export class EditarInconsistenciaComponent implements OnInit {
     this.getTablas()
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.inconsistencia = res
-      console.log(this.inconsistencia);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.inconsistencia.ModifiedBy = user.UserId

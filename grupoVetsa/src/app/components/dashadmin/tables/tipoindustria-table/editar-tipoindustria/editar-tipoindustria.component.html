@@ -1,3 +1,14 @@
-<p>
-  editar-tipoindsutria works!
-</p>
+<form #AddTipoIndustriaForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" placeholder="tpoindustria.TipoIndustria" name="TipoIndustria" id="TipoIndustria" [(ngModel)]="tipoindustria.TipoIndustria" #TipoIndustria="ngModel" required>
+            <label for="TipoIndustria">Tipo Industria</label>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddTipoIndustriaForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Editar
+            </button>
+        </div>
+    </div>
+</form>

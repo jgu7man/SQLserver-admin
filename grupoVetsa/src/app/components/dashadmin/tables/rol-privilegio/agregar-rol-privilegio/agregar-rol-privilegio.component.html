@@ -1,0 +1,24 @@
+<form #AddCategoriaForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col s6">
+            <label for="Privilegio">Darle privilegio de:</label>
+            <select name="Privilegio" id="Privilegio" [(ngModel)]="privilegio.PrivilegioId" #PrivilegioId="ngModel">
+                <option *ngFor="let item of privilegios" [value]=item.Id>{{item.Privilegio}}</option>
+            </select>
+        </div>
+
+        <div class="col s6">
+            <label for="Rol">Al rol:</label>
+            <select name="Rol" id="Rol" [(ngModel)]="privilegio.RolId" #RolId="ngModel">
+                <option *ngFor="let item of roles" [value]=item.Id>{{item.RolDescription}}</option>
+            </select>
+        </div>
+
+        <div class="col s12 center">
+            <button [disabled]="!AddCategoriaForm.form.valid" class="btn deep-purple darken-4" type="submit">
+                Agregar
+            </button>
+        </div>
+
+    </div>
+</form>

@@ -25,7 +25,7 @@ export class AgregarClienteComponent implements OnInit {
     private router: Router
   ) {
     // CAMBIAR LOS INT DE 0 A 1
-    this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1)
+    this.cliente = new ClienteModel(1,'','',1,'','','',1,'','','',1,'','',1,1,'','',1,1,1,1,1)
    }
 
   ngOnInit() {
@@ -52,6 +52,7 @@ export class AgregarClienteComponent implements OnInit {
     this.cliente.Segmento = +this.cliente.Segmento
     this.cliente.Mercado = +this.cliente.Mercado
     this.cliente.PaisFacturacion = +this.cliente.PaisFacturacion
+    this.cliente.TipoPago = +this.cliente.TipoPago
 
     this._mant.saveData('Cliente', this.cliente).subscribe(res => {
       this._alerta.setAlerta(res)

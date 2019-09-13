@@ -16,6 +16,7 @@ export class EditarProveedorComponent implements OnInit {
   public Segmento_items = []
   public Cliente_items = []
   public GrupoPersona_items = []
+  public TipoFiscal_items = []
   public ruta
   public id
   constructor(
@@ -34,7 +35,6 @@ export class EditarProveedorComponent implements OnInit {
     this.getTablas()
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.proveedor = res
-      console.log(this.proveedor);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.proveedor.ModifiedBy = user.UserId
@@ -43,6 +43,7 @@ export class EditarProveedorComponent implements OnInit {
 
   getTablas() {
     this._mant.getData('Cliente').subscribe(res => { this.Cliente_items = res })
+    this._mant.getData('TipoFiscal').subscribe(res => { this.TipoFiscal_items = res })
     this._mant.getData('Pais').subscribe(res => { this.Pais_items = res })
     this._mant.getData('Segmento').subscribe(res => { this.Segmento_items = res })
     this._mant.getData('GrupoPersona').subscribe( res => { this.GrupoPersona_items = res })

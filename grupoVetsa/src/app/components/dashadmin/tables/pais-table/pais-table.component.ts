@@ -16,12 +16,6 @@ export class PaisTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
-  }
-
-  onChangeRol(id) {
-    $('change-rol').fadeToggle()
-    this.idSelected = id
   }
 
   toDelete(id) {

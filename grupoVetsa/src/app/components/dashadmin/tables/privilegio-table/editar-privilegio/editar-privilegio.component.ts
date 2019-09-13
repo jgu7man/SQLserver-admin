@@ -29,7 +29,6 @@ export class EditarPrivilegioComponent implements OnInit {
   ngOnInit() {
     this._mant.selectData(this.ruta, this.id).subscribe(res => {
       this.privilegio = res
-      console.log(this.privilegio);
     })
     var user = JSON.parse(sessionStorage.getItem('gvlog'))
     this.privilegio.ModifiedBy = user.UserId

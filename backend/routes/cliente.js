@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var sql = require('mssql');
 
-router.post('/saveCliente', function(req, res, next) {
+router.post('/saveCliente', async function(req, res, next) {
     const body = req.body;
     const request = new sql.Request();
 
@@ -14,19 +14,21 @@ router.post('/saveCliente', function(req, res, next) {
     const dateSplit = today.split('T');
     const date = dateSplit[0].toString();
 
-    // GET LAST INDEX
-    request.query('SELECT * FROM Cliente', function(err, result) {
-        if (err) { return next(err); }
+    try {
+        // GET LAST INDEX
+        let query1 = await request.query('SELECT * FROM Cliente');
         var newId;
-        var rec = result.recordset;
-        if (rec.length == 0) { newId = 1; } else {
-            var lastId = rec[rec.length - 1].Id;
+        var tablaCliente = query1.recordset;
+        if (tablaCliente.length == 0) { newId = 1; } else {
+            var lastId = tablaCliente[tablaCliente.length - 1].Id;
             newId = lastId + 1;
         }
 
+        // DEFINE CAMPOS
+        var campos = 'Id, GrupoEmpresarial, RegistroTributario, TipoRegistro, Direccion, WebPage, Actividad, LineaProducto, Vision, Mision, Valores, Pais, Telefono, Industria, TipoIndustria, Segmento, RSE, Marcas, Mercado, PaisFacturacion, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy, TipoPago';
+
         // SAVE DATA CLIENTE
-        var campos = 'Id, GrupoEmpresarial, RegistroTributario, TipoRegistro, Direccion, WebPage, Actividad, LineaProducto, Vision, Mision, Valores, Pais, Telefono, Industria, TipoIndustria, Segmento, RSE, Marcas, Mercado, PaisFacturacion, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-        request.query(`
+        let query2 = await request.query(`
         SET IDENTITY_INSERT Cliente ON
             INSERT INTO Cliente (${campos}) 
             VALUES (
@@ -53,75 +55,46 @@ router.post('/saveCliente', function(req, res, next) {
                 '${date}',
                 '${date}',
                 ${body.CreatedBy},
-                ${body.ModifiedBy}
+                ${body.ModifiedBy},
+                ${body.TipoPago}
                 )
         SET IDENTITY_INSERT Cliente OFF
-        `,
-
-            function(err, result) {
-                if (err) {
-                    console.log(err);
-                    return res.status(200).send({
-                        mensaje: 'Hubo un error al guardar Cliente',
-                        tipo: 'warning',
-                        error: err
-                    });
-                }
-                var data = {};
-                data = result.recordset;
-                console.log('Cliente agregado');
-
-            });
-
-        request.query('SELECT * FROM Cliente_LineaProducto', function(err, result) {
-            if (err) {
-                return next(err);
-            }
-            var newIdMerge;
-            var recMerge = result.recordset;
-            if (recMerge.length == 0) { newIdMerge = 1; } else {
-                var lastId = recMerge[recMerge.length - 1].Id;
-                newIdMerge = lastId + 1;
-            }
-
-            console.log(newIdMerge);
-            console.log(newId);
-            console.log(body.LineaProducto);
+        `);
+        console.log('Cliente agregado');
 
 
-            var camposLinea = 'Id, LineaProducto, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy, Cliente';
-            request.query(`
-                INSERT INTO Cliente_LineaProducto (${camposLinea}) 
-                VALUES (
-                    ${newIdMerge},
-                    ${body.LineaProducto},
-                    '${date}',
-                    '${date}',
-                    ${body.CreatedBy},
-                    ${body.ModifiedBy},
-                    ${newId}
-                    )
-                `,
+        // GUARDAR SEGÚN TIPO DE PAGO
+        // DEFINIR TABLA
+        var solicitud;
+        if (body.TipoPago == 1) {
+            solicitud = 'Solicitud_Credito';
+        } else {
+            solicitud = 'Solicitud_Efectivo';
+        }
 
-                function(err, result) {
-                    if (err) {
-                        console.log(err);
-                        return res.status(200).send({
-                            mensaje: 'Hubo un error al guardar LineaProducto',
-                            tipo: 'warning',
-                            error: err
-                        });
-                    }
-                    var data = {};
-                    data = result.recordset;
-                    console.log('LineaProducto agregada a Cliente');
-                    return res.status(200).send({
-                        mensaje: 'Cliente agregado con éxito',
-                        tipo: 'succsess'
-                    });
-                });
+        // DEFINE CAMPOS
+        var camposSolicitud = 'Cliente, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+        // SAVE DATA SOLICITUD
+        let query3 = await request.query(`
+        INSERT INTO ${solicitud} (${camposSolicitud})
+        VALUES (${newId}, '${date}', '${date}', ${body.CreatedBy}, ${body.ModifiedBy} )
+        `);
+        console.log('Cliente agregado a tipo de solicitud');
+
+        return res.send({
+            mensaje: 'Cliente agregado con éxito',
+            tipo: 'success'
         });
-    });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+
 });
 
 router.post('/updateCliente', function(req, res, next) {
@@ -158,7 +131,8 @@ router.post('/updateCliente', function(req, res, next) {
             Mercado = '${body.Mercado}',
             PaisFacturacion = ${body.PaisFacturacion},
             ModifiedDate = '${date}',
-            ModifiedBy = ${body.ModifiedBy}
+            ModifiedBy = ${body.ModifiedBy},
+            TipoPago = ${body.TipoPago}
         WHERE Id = ${body.Id}
         `,
 
@@ -226,7 +200,8 @@ router.get('/getCliente', function(req, res, next) {
                         Mercado: doc.Mercado,
                         PaisFacturacion: doc.PaisFacturacion,
                         ModifiedDate: doc.ModifiedDate,
-                        ModifiedBy: doc.ModifiedBy
+                        ModifiedBy: doc.ModifiedBy,
+                        TipoPago: doc.TipoPago
                     });
                 } catch (err) {
                     console.log(err);
@@ -280,6 +255,259 @@ router.post('/enviarEfectivo', async function(req, res, next) {
     }
 
     return res.send("hola");
+});
+
+
+// GUARDAR CÓDIGO SAP
+router.post('/saveCodigoSap', async function(req, res, next) {
+    const request = new sql.Request();
+    const body = req.body;
+
+    // GET TODAY
+    const today = new Date().toISOString();
+    const dateSplit = today.split('T');
+    const date = dateSplit[0].toString();
+
+    try {
+        let query1 = await request.query(`SELECT * FROM CodigoSap`);
+        var newId;
+        var CodigoSapTable = query1.recordset;
+        if (CodigoSapTable.length == 0) { newId = 1; } else {
+            var lastId = CodigoSapTable[CodigoSapTable.length - 1].Id;
+            newId = lastId + 1;
+        }
+
+        var campos = 'Id, ClienteId, CodigoSap, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+        let query2 = await request.query(`
+        INSERT INTO CodigoSap (${campos}) 
+            VALUES (
+                ${newId},
+                ${body.ClienteId},
+                '${body.CodigoSAP}',
+                '${date}',
+                '${date}',
+                ${body.CreatedBy},
+                ${body.ModifiedBy}
+            )
+        `);
+
+        console.log('Código SAP agregado');
+        return res.send({
+            mensaje: 'Código SAP agregado',
+            tipo: 'success'
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+
+});
+
+// GUARDAR CONTACTO
+router.post('/saveContacto', async function(req, res, next) {
+    const request = new sql.Request();
+    const body = req.body;
+
+    // GET TODAY
+    const today = new Date().toISOString();
+    const dateSplit = today.split('T');
+    const date = dateSplit[0].toString();
+
+    try {
+        let query1 = await request.query(`SELECT * FROM Contacto`);
+        var newId;
+        var ContactoTable = query1.recordset;
+        if (ContactoTable.length == 0) { newId = 1; } else {
+            var lastId = ContactoTable[ContactoTable.length - 1].Id;
+            newId = lastId + 1;
+        }
+
+        var campos = 'Id, Contacto, Posicion, Email, Telefono, Cliente, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+        let query2 = await request.query(`
+        SET IDENTITY_INSERT Contacto ON
+        INSERT INTO Contacto (${campos}) 
+            VALUES (
+                ${newId},
+                '${body.Contacto}',
+                '${body.Posicion}',
+                '${body.Email}',
+                '${body.Telefono}',
+                ${body.Cliente},
+                '${date}',
+                '${date}',
+                ${body.CreatedBy},
+                ${body.ModifiedBy}
+            )
+        SET IDENTITY_INSERT Contacto OFF
+        `);
+
+        return res.send({
+            mensaje: 'Contacto agregado',
+            tipo: 'success'
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+
+});
+
+
+// GET PRIMERA PÁGINA DE CLIENTES
+
+router.get('/getClienteTable', async function(req, res, next) {
+    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+    const request = new sql.Request();
+    try {
+
+        let query1 = await request.query(`
+            SELECT Cliente.Id, Cliente.CreatedDate, Cliente.GrupoEmpresarial, Pais.Pais, Cliente.Direccion, Cliente.Telefono, Usuario.UserName, Cliente.TipoPago
+            FROM ((Cliente
+            INNER JOIN Pais ON Cliente.Pais = Pais.Id)
+            INNER JOIN Usuario ON Cliente.CreatedBy = Usuario.Id)
+            ORDER BY Id OFFSET 0 ROWS
+            FETCH NEXT 10 ROWS ONLY
+        `);
+
+        var clientes = [];
+        await query1.recordset.forEach(async cliente => {
+            let query2 = await request.query(`
+            SELECT Solicitud.Cliente FROM Solicitud WHERE Cliente = ${cliente.Id}
+            `);
+            if (query2.recordset[0]) {
+                return clientes.push({
+                    solicitud: true,
+                    cliente: cliente
+                });
+            } else {
+                return clientes.push({
+                    solicitud: false,
+                    cliente: cliente
+                });
+            }
+        });
+        await waitFor(1000);
+        return res.send({
+            data: clientes,
+            page: 1
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+});
+
+// GET SIGUIENTE PÁGINA DE CLIENTES
+router.get('/getClienteTableNext/:page?', async function(req, res, next) {
+    var page = +req.params.page;
+    var nextPage = page + 1;
+    var ofset = page * 10;
+    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+    const request = new sql.Request();
+    try {
+        let query1 = await request.query(`
+            SELECT Cliente.Id, Cliente.CreatedDate, Cliente.GrupoEmpresarial, Pais.Pais, Cliente.Direccion, Cliente.Telefono, Usuario.UserName, Cliente.TipoPago
+            FROM ((Cliente
+            INNER JOIN Pais ON Cliente.Pais = Pais.Id)
+            INNER JOIN Usuario ON Cliente.CreatedBy = Usuario.Id)
+            ORDER BY Id OFFSET ${ofset} ROWS
+            FETCH NEXT 10 ROWS ONLY
+        `);
+
+        var clientes = [];
+        await query1.recordset.forEach(async cliente => {
+            let query2 = await request.query(`
+            SELECT Solicitud.Cliente FROM Solicitud WHERE Cliente = ${cliente.Id}
+            `);
+            if (query2.recordset[0]) {
+                return clientes.push({
+                    solicitud: true,
+                    cliente: cliente
+                });
+            } else {
+                return clientes.push({
+                    solicitud: false,
+                    cliente: cliente
+                });
+            }
+        });
+        await waitFor(1000);
+        return res.send({
+            data: clientes,
+            page: nextPage
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
+});
+
+// GET ANTERIOR PÁGINA DE CLIENTES
+router.get('/getClienteTablePrevious/:page?', async function(req, res, next) {
+    var page = +req.params.page;
+    var previusPage = page - 1;
+    var ofset = previusPage * 10;
+    var previusOfset = ofset - 10;
+    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+    const request = new sql.Request();
+    try {
+        let query1 = await request.query(`
+            SELECT Cliente.Id, Cliente.CreatedDate, Cliente.GrupoEmpresarial, Pais.Pais, Cliente.Direccion, Cliente.Telefono, Usuario.UserName, Cliente.TipoPago
+            FROM ((Cliente
+            INNER JOIN Pais ON Cliente.Pais = Pais.Id)
+            INNER JOIN Usuario ON Cliente.CreatedBy = Usuario.Id)
+            ORDER BY Id OFFSET ${previusOfset} ROWS
+            FETCH NEXT 10 ROWS ONLY
+        `);
+
+        var clientes = [];
+        await query1.recordset.forEach(async cliente => {
+            let query2 = await request.query(`
+            SELECT Solicitud.Cliente FROM Solicitud WHERE Cliente = ${cliente.Id}
+            `);
+            if (query2.recordset[0]) {
+                return clientes.push({
+                    solicitud: true,
+                    cliente: cliente
+                });
+            } else {
+                return clientes.push({
+                    solicitud: false,
+                    cliente: cliente
+                });
+            }
+        });
+        await waitFor(1000);
+        return res.send({
+            data: clientes,
+            page: previusPage
+        });
+
+    } catch (err) {
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
+    }
 });
 
 module.exports = router;

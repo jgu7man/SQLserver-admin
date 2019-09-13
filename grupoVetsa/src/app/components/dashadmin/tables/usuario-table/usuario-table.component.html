@@ -5,6 +5,7 @@
             <th>Usuario</th>
             <th>Nombre</th>
             <th>Apellido</th>
+            <th>Rol</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -14,6 +15,7 @@
             <td> {{item.UserName}} </td>
             <td> {{item.FirstName}} </td>
             <td> {{item.LastName}} </td>
+            <td> {{item.RolDescription}} </td>
             <td class="opciones">
                 <i class="fas fa-user azul-text" (click)="onChangeRol(item.Id)"></i>
                 <i class="fas fa-edit verde-text" [routerLink]="['../../editar/Usuario', item.Id]"></i>
@@ -22,5 +24,12 @@
         </tr>
     </tbody>
 </table>
+
+<div class="col s12">
+    <p>
+        <button [disabled]="page == 1" (click)="previousPage(page)">Previa</button> Página: {{page}}
+        <button [disabled]="disableNext" (click)="nextPage(page)">Siguiente</button>
+    </p>
+</div>
 
 <change-rol class="overlay" style="display: none" [UserId]="idSelected"></change-rol>

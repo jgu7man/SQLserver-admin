@@ -14,6 +14,8 @@ export class SolicitudesTableComponent implements OnInit {
   public disableCredito
   public pageEfectivo
   public disableEfectivo
+  public clienteId
+  public clienteName
   constructor(
     private _solicitud: CreditoService
   ) { }
@@ -25,12 +27,30 @@ export class SolicitudesTableComponent implements OnInit {
   getTablas() {
     this._solicitud.getTabla('Solicitud_Credito').subscribe(res => {
       this.creditos = res.data;
+      this.pageCredito = res.page
       console.log(res);
     })
     this._solicitud.getTabla('Solicitud_Efectivo').subscribe(res => {
       this.efectivos = res.data;
+      this.pageEfectivo = res.page
       console.log(res);
     })
+  }
+
+  onCode(id, name) {
+    $("agregar-codigo-sap").fadeToggle()
+    this.clienteId = id
+    this.clienteName = name
+    console.log(id, name);
+    console.log(this.clienteName);
+  }
+
+  onContact(id, name) {
+    $("agregar-contacto").fadeToggle()
+    this.clienteId = id
+    this.clienteName = name
+    console.log(id, name);
+    console.log(this.clienteName);
   }
 
   nextPageCredito( page: number) {

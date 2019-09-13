@@ -112,109 +112,101 @@ router.post('/updateProveedor', function(req, res, next) {
     );
 });
 
-router.get('/getTablaProveedor', async function(req, res, next) {
-    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
-    var tabla = req.params.tabla;
-    var request = new sql.Request();
+
+// GET PRIMER PÁGINA DE Proveedor
+router.get('/getProveedorTable', async function(req, res, next) {
+    const request = new sql.Request();
     try {
-        let result1 = await request.query(` 
-            SELECT * FROM ${tabla}
+        let query1 = await request.query(`
+            SELECT Proveedor.Id, Proveedor.CreatedDate, Proveedor.Proveedor, Proveedor.IdentificadorFiscal, GrupoPersona.GrupoPersona, Pais.Pais, Segmento.Segmento, Usuario.UserName
+            FROM ((((Proveedor
+            INNER JOIN GrupoPersona ON Proveedor.GrupoPersona = GrupoPersona.Id)
+            INNER JOIN Pais ON Proveedor.Pais = Pais.Id)
+            INNER JOIN Usuario ON Proveedor.CreatedBy = Usuario.Id)
+            INNER JOIN Segmento ON Proveedor.Segmento = Segmento.Id)
             ORDER BY Id OFFSET 0 ROWS
             FETCH NEXT 10 ROWS ONLY
         `);
 
-        // CAMBIAR ID'S POR NOMBRES
-        var data = [];
-        await result1.recordset.forEach(async record => {
-            // CAMBIAR CREATED BY
-            let createdBy = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.CreatedBy}`);
-            record.CreatedBy = createdBy.recordset[0].UserName;
-
-            // CAMBIAR MODIFIEDBY
-            let ModifiedBy = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.ModifiedBy}`);
-            record.ModifiedBy = ModifiedBy.recordset[0].UserName;
-
-            // INSERTAR DATA DE NUEVO AL ARRAY ORIGINAL
-            return data.push(record);
+        return res.send({
+            data: query1.recordset,
+            page: 1
         });
-        await waitFor(1000);
-        res.send({ data, page: 1 });
+
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
-router.get('/nextPage/:tabla?/:page?', async function(req, res, next) {
-    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
-    var request = new sql.Request();
-    var tabla = req.params.tabla;
+
+// GET NEXT PÁGINA DE PROVEEDOR
+router.get('/getProveedorTableNext/:page?', async function(req, res, next) {
     var page = +req.params.page;
     var nextPage = page + 1;
     var ofset = page * 10;
 
+    const request = new sql.Request();
     try {
-        let result1 = await request.query(` 
-            SELECT * FROM ${tabla}
+        let query1 = await request.query(`
+            SELECT Proveedor.Id, Proveedor.CreatedDate, Proveedor.Proveedor, Proveedor.IdentificadorFiscal, GrupoPersona.GrupoPersona, Pais.Pais, Segmento.Segmento, Usuario.UserName
+            FROM ((((Proveedor
+            INNER JOIN GrupoPersona ON Proveedor.GrupoPersona = GrupoPersona.Id)
+            INNER JOIN Pais ON Proveedor.Pais = Pais.Id)
+            INNER JOIN Usuario ON Proveedor.CreatedBy = Usuario.Id)
+            INNER JOIN Segmento ON Proveedor.Segmento = Segmento.Id)
             ORDER BY Id OFFSET ${ofset} ROWS
             FETCH NEXT 10 ROWS ONLY
         `);
 
-        // CAMBIAR ID'S POR NOMBRES
-        var data = [];
-        await result1.recordset.forEach(async record => {
-            // CAMBIAR CREATED BY
-            let createdBy = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.CreatedBy}`);
-            record.CreatedBy = createdBy.recordset[0].UserName;
-
-            // CAMBIAR MODIFIEDBY
-            let ModifiedBy = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.ModifiedBy}`);
-            record.ModifiedBy = ModifiedBy.recordset[0].UserName;
-
-            // INSERTAR DATA DE NUEVO AL ARRAY ORIGINAL
-            return data.push(record);
+        return res.send({
+            data: query1.recordset,
+            page: nextPage
         });
-        await waitFor(1000);
-        res.send({ data, page: nextPage });
+
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
-router.get('/previusPage/:tabla?/:page?', async function(req, res, next) {
-    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
-    var request = new sql.Request();
-    var tabla = req.params.tabla;
+
+router.get('/getProveedorTablePrevious/:page?', async function(req, res, next) {
     var page = +req.params.page;
     var previusPage = page - 1;
     var ofset = previusPage * 10;
     var previusOfset = ofset - 10;
 
-
+    const request = new sql.Request();
     try {
-        let result1 = await request.query(` 
-            SELECT * FROM ${tabla}
+        let query1 = await request.query(`
+            SELECT Proveedor.Id, Proveedor.CreatedDate, Proveedor.Proveedor, Proveedor.IdentificadorFiscal, GrupoPersona.GrupoPersona, Pais.Pais, Segmento.Segmento, Usuario.UserName
+            FROM ((((Proveedor
+            INNER JOIN GrupoPersona ON Proveedor.GrupoPersona = GrupoPersona.Id)
+            INNER JOIN Pais ON Proveedor.Pais = Pais.Id)
+            INNER JOIN Usuario ON Proveedor.CreatedBy = Usuario.Id)
+            INNER JOIN Segmento ON Proveedor.Segmento = Segmento.Id)
             ORDER BY Id OFFSET ${previusOfset} ROWS
             FETCH NEXT 10 ROWS ONLY
         `);
 
-        // CAMBIAR ID'S POR NOMBRES
-        var data = [];
-        await result1.recordset.forEach(async record => {
-            // CAMBIAR CREATED BY
-            let createdBy = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.CreatedBy}`);
-            record.CreatedBy = createdBy.recordset[0].UserName;
-
-            // CAMBIAR MODIFIEDBY
-            let ModifiedBy = await request.query(`SELECT * FROM Usuario WHERE Id = ${record.ModifiedBy}`);
-            record.ModifiedBy = ModifiedBy.recordset[0].UserName;
-
-            // INSERTAR DATA DE NUEVO AL ARRAY ORIGINAL
-            return data.push(record);
+        return res.send({
+            data: query1.recordset,
+            page: previusOfset
         });
-        await waitFor(1000);
-        res.send({ data, page: previusPage });
+
     } catch (err) {
-        console.log(err);
+        next(err.originalError.message);
+        return res.send({
+            mensaje: err.originalError.message,
+            tipo: 'warning'
+        });
     }
 });
 
