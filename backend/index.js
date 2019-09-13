@@ -5,11 +5,11 @@ var app = require('./app');
 var port = process.env.PORT || 5000;
 
 var config = {
-    user: 'procesoslogisticos',
-    password: 'Proceso2019',
-    server: 'grupovesta.database.windows.net',
+    user: '',
+    password: '',
+    server: '',
     port: '',
-    database: 'ProcesoLogistico',
+    database: '',
     encrypt: true
 };
 
