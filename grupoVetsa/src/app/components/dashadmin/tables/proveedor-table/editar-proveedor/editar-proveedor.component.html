@@ -1,11 +1,11 @@
 <form #AddProveedorForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col s12 input-field">
-            <input type="text" name="Proveedor" id="Proveedor" [(ngModel)]="proveedor.Proveedor" #Proveedor="ngModel" required>
+            <input type="text" placeholder="proveedor.Proveedor" name="Proveedor" id="Proveedor" [(ngModel)]="proveedor.Proveedor" #Proveedor="ngModel" required>
             <label for="Proveedor">Nombre del Provedor</label>
         </div>
         <div class="col s6 input-field">
-            <input type="text" name="IdentificadorFiscal" id="IdentificadorFiscal" [(ngModel)]="proveedor.IdentificadorFiscal" #IdentificadorFiscal="ngModel" required>
+            <input type="text" placeholder="proveedor.IdentificadorFiscal" name="IdentificadorFiscal" id="IdentificadorFiscal" [(ngModel)]="proveedor.IdentificadorFiscal" #IdentificadorFiscal="ngModel" required>
             <label for="IdentificadorFiscal">Identificador Fiscal</label>
         </div>
         <!--Combobox que traera la informacion de la tabla TipoIdentificador-->

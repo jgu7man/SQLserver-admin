@@ -1,3 +1,18 @@
+.imgContainer {
+    transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+    max-width: 300px;
+}
+
+.imgContainer img {
+    position: relative;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 100%;
+}
+
 .rowLogin {
     min-height: 100vh;
 }

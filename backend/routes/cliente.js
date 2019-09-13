@@ -221,33 +221,44 @@ router.post('/saveCodigoSap', async function(req, res, next) {
 
     try {
         let query1 = await request.query(`SELECT * FROM CodigoSap`);
-        var newId;
+
+        // VALIDACIÓN CLIENTE
         var CodigoSapTable = query1.recordset;
-        if (CodigoSapTable.length == 0) { newId = 1; } else {
-            var lastId = CodigoSapTable[CodigoSapTable.length - 1].Id;
-            newId = lastId + 1;
+        if (CodigoSapTable.includes(body.Cliente)) {
+            return res.send({
+                mensaje: 'El cliente ya tiene un código SAP',
+                tipo: 'warning'
+            });
+        } else {
+
+
+            var newId;
+            if (CodigoSapTable.length == 0) { newId = 1; } else {
+                var lastId = CodigoSapTable[CodigoSapTable.length - 1].Id;
+                newId = lastId + 1;
+            }
+
+            var campos = 'Id, ClienteId, CodigoSap, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
+
+            let query2 = await request.query(`
+            INSERT INTO CodigoSap (${campos}) 
+                VALUES (
+                    ${newId},
+                    ${body.ClienteId},
+                    '${body.CodigoSAP}',
+                    '${date}',
+                    '${date}',
+                    ${body.CreatedBy},
+                    ${body.ModifiedBy}
+                )
+            `);
+
+            console.log('Código SAP agregado');
+            return res.send({
+                mensaje: 'Código SAP agregado',
+                tipo: 'success'
+            });
         }
-
-        var campos = 'Id, ClienteId, CodigoSap, CreatedDate, ModifiedDate, CreatedBy, ModifiedBy';
-
-        let query2 = await request.query(`
-        INSERT INTO CodigoSap (${campos}) 
-            VALUES (
-                ${newId},
-                ${body.ClienteId},
-                '${body.CodigoSAP}',
-                '${date}',
-                '${date}',
-                ${body.CreatedBy},
-                ${body.ModifiedBy}
-            )
-        `);
-
-        console.log('Código SAP agregado');
-        return res.send({
-            mensaje: 'Código SAP agregado',
-            tipo: 'success'
-        });
 
     } catch (err) {
         next(err.originalError.message);

@@ -1,11 +1,13 @@
 <form #AddClienteForm="ngForm" action="#" method="post" onsubmit="return false" (ngSubmit)="onSubmit()">
     <div class="row">
+
         <div class="col s6 input-field">
-            <input type="text" name="GrupoEmpresarial" id="GrupoEmpresarial" [(ngModel)]="cliente.GrupoEmpresarial" #GrupoEmpresarial="ngModel" required>
+            <input placeholder="cliente.GrupoEmpresarial" type="text" name="GrupoEmpresarial" id="GrupoEmpresarial" [(ngModel)]="cliente.GrupoEmpresarial" #GrupoEmpresarial="ngModel" required>
             <label for="GrupoEmpresarial">Grupo Empresarial</label>
         </div>
+
         <div class="col s6 input-field">
-            <input type="text" name="RegistroTributario" id="RegistroTributario" [(ngModel)]="cliente.RegistroTributario" #RegistroTributario="ngModel" required>
+            <input type="text" placeholder="cliente.RegistroTributario" name="RegistroTributario" id="RegistroTributario" [(ngModel)]="cliente.RegistroTributario" #RegistroTributario="ngModel" required>
             <label for="RegistroTributario">Registro Tributario</label>
         </div>
         <!--Combobox que traera la informacion de la tabla TipoRegistro-->
@@ -17,15 +19,17 @@
         </div>
 
         <div class="col s12 input-field">
-            <input type="text" name="Direccion" id="Direccion" [(ngModel)]="cliente.Direccion" #Direccion="ngModel" required>
+            <input type="text" placeholder="cliente.Direccion" name="Direccion" id="Direccion" [(ngModel)]="cliente.Direccion" #Direccion="ngModel" required>
             <label for="Direccion">Direccion</label>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="WebPage" id="WebPage" [(ngModel)]="cliente.WebPage" #WebPage="ngModel">
+            <input type="text" placeholder="cliente.WebPage" name="WebPage" id="WebPage" [(ngModel)]="cliente.WebPage" #WebPage="ngModel">
             <label for="WebPage">WebPage</label>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="Actividad" id="Actividad" [(ngModel)]="cliente.Actividad" #Actividad="ngModel" required>
+            <input type="text" placeholder="cliente.Actividad" name="Actividad" id="Actividad" [(ngModel)]="cliente.Actividad" #Actividad="ngModel" required>
             <label for="Actividad">Actividad</label>
         </div>
         <!--Combobox que traera la informacion de la tabla LineaProducto-->
@@ -35,16 +39,19 @@
                 <option selected *ngFor="let item of LineaProducto_items" value="{{item.LineaProducto}}">{{item.LineaProducto}} - {{item.Id}}</option>
             </select>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="Vision" id="Vision" [(ngModel)]="cliente.Vision" #Vision="ngModel" required>
+            <input type="text" placeholder="cliente.Vision" name="Vision" id="Vision" [(ngModel)]="cliente.Vision" #Vision="ngModel" required>
             <label for="Vision">Vision</label>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="Mision" id="Mision" [(ngModel)]="cliente.Mision" #Mision="ngModel" required>
+            <input type="text" placeholder="cliente.Mision" name="Mision" id="Mision" [(ngModel)]="cliente.Mision" #Mision="ngModel" required>
             <label for="Mision">Mision</label>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="Valores" id="Valores" [(ngModel)]="cliente.Valores" #Valores="ngModel" required>
+            <input type="text" placeholder="cliente.Valores" name="Valores" id="Valores" [(ngModel)]="cliente.Valores" #Valores="ngModel" required>
             <label for="Valores">Valores</label>
         </div>
         <!--Combobox que traera la informacion de la tabla Pais-->
@@ -54,12 +61,14 @@
                 <option selected *ngFor="let item of Pais_items" value="{{item.Id}}">{{item.Pais}} - {{item.Id}}</option>
             </select>
         </div>
+
         <div class="col s12 input-field">
-            <input type="number" name="Telefono" id="Telefono" [(ngModel)]="cliente.Telefono" #Telefono="ngModel" required>
+            <input type="number" placeholder="cliente.Telefono" name="Telefono" id="Telefono" [(ngModel)]="cliente.Telefono" #Telefono="ngModel" required>
             <label for="Telefono">Telefono</label>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="Industria" id="Industria" [(ngModel)]="cliente.Industria" #Industria="ngModel" required>
+            <input type="text" placeholder="cliente.Industria" name="Industria" id="Industria" [(ngModel)]="cliente.Industria" #Industria="ngModel" required>
             <label for="Industria">Industria</label>
         </div>
         <!--Combobox que traera la informacion de la tabla TipoIndustria-->
@@ -76,12 +85,14 @@
                 <option selected *ngFor="let item of Segmento_items" value="{{item.Id}}">{{item.Segmento}}{{item.Id}}</option>
             </select>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="RSE" id="RSE" [(ngModel)]="cliente.RSE" #RSE="ngModel" required>
+            <input type="text" placeholder="cliente.RSE" name="RSE" id="RSE" [(ngModel)]="cliente.RSE" #RSE="ngModel" required>
             <label for="RSE">RSE</label>
         </div>
+
         <div class="col s12 input-field">
-            <input type="text" name="Marcas" id="Marcas" [(ngModel)]="cliente.Marcas" #Marcas="ngModel" required>
+            <input type="text" placeholder="cliente.Marcas" name="Marcas" id="Marcas" [(ngModel)]="cliente.Marcas" #Marcas="ngModel" required>
             <label for="Marcas">Marcas</label>
         </div>
 

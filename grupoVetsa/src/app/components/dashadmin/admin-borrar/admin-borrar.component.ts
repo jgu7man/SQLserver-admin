@@ -3,6 +3,7 @@ import { BorrarService } from '../../../services/borrar.service';
 import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { AlertaService } from '../../../services/alerta.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RefreshService } from '../../../services/refresh.service';
 
 @Component({
   selector: 'admin-borrar',
@@ -19,7 +20,7 @@ export class AdminBorrarComponent implements OnInit {
     private _mant: MantenimientoService,
     private _alerta: AlertaService,
     private _ruta: ActivatedRoute,
-    private router: Router
+    private _refresh: RefreshService
   ) { }
 
   ngOnInit() {
@@ -40,8 +41,7 @@ export class AdminBorrarComponent implements OnInit {
     this._mant.deleteData(this.tabla, this.idToDel).subscribe(res => {
       $('admin-borrar').fadeToggle()
       this._alerta.setAlerta(res)
-      this.router.onSameUrlNavigation = 'reload'
-      this.router.navigate(['/dashadmin/mantenimiento/'+this.tabla])
+      this._refresh.toRefresh()
     })
   }
 

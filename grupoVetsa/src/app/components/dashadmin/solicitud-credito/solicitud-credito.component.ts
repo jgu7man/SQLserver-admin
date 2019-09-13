@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SolicitudCreditoModel } from '../../../models/solicitud-credito.model';
 import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { AlertaService } from '../../../services/alerta.service';
+import { RefreshService } from '../../../services/refresh.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'solicitud-credito',
@@ -17,9 +19,11 @@ export class SolicitudCreditoComponent implements OnInit {
   public Moneda_items = []
   constructor(
     private _mant: MantenimientoService,
-    private _alerta: AlertaService
+    private _alerta: AlertaService,
+    private _refresh: RefreshService,
   ) {
-    this.Solicitud = new SolicitudCreditoModel(0,0,'','','',0,0,0,'',1,'',0,0,0)
+    this.Solicitud = new SolicitudCreditoModel(0, 0, '', '', '', 0, 0, 0, '', 1, '', 0, 0, 0)
+    
    }
 
   ngOnInit() {
@@ -28,17 +32,16 @@ export class SolicitudCreditoComponent implements OnInit {
     this.Solicitud.ModifiedBy = user.UserId
     this.getTablas()
     this.Solicitud.Cliente = this.cliente
+
   }
 
   getTablas() {
     this._mant.getData('Moneda').subscribe(res => {
       this.Moneda_items = res;
-      console.log(res);
     })
-    // this._mant.getData('Cliente').subscribe(res => {
-    //   this.Cliente_items = res;
-    //   console.log(res);
-    // })
+    this._mant.getData('TipoPago').subscribe(res => {
+      this.TipoPago_items = res;
+    })
   }
 
   onClose() {
@@ -52,6 +55,7 @@ export class SolicitudCreditoComponent implements OnInit {
     this._mant.saveData('Solicitud', this.Solicitud).subscribe(res => {
       this._alerta.setAlerta(res)
       $("solicitud-credito").fadeToggle()
+        this._refresh.toRefresh()
     })
   }
 

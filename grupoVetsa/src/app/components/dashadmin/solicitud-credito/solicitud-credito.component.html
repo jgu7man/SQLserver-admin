@@ -27,35 +27,35 @@
                 <label for="ProyeccionVolumenMensual">Proyeccion Volumen Mensual</label>
             </div>
             <div class="col s12 input-field">
-                <input type="number" name="MontoSolicitado" id="MontoSolicitado" [(ngModel)]="Solicitud.MontoSolicitado" #MontoSolicitado="ngModel" required>
+                <input type="number" placeholder="Solicitud.MontoSolicitado" name="MontoSolicitado" id="MontoSolicitado" [(ngModel)]="Solicitud.MontoSolicitado" #MontoSolicitado="ngModel" required>
                 <label for="MontoSolicitado">Monto Solicitado</label>
             </div>
             <div class="col s12 input-field">
-                <input type="number" name="TiempoCredito" id="TiempoCredito" [(ngModel)]="Solicitud.TiempoCredito" #TiempoCredito="ngModel" required>
+                <input type="number" placeholder="Solicitud.TiempoCredito" name="TiempoCredito" id="TiempoCredito" [(ngModel)]="Solicitud.TiempoCredito" #TiempoCredito="ngModel" required>
                 <label for="TiempoCredito">Tiempo Credito</label>
             </div>
-            <div class="col s12 input-field">
+            <div class="col s12">
                 <label for="Moneda">Moneda</label>
                 <select name="Moneda" id="Moneda" [(ngModel)]="Solicitud.Moneda" #Moneda="ngModel">
-                  <option *ngFor="let item of Moneda_items" value="{{item.MonedaId}}">{{item.Moneda}}</option>
+                  <option selected *ngFor="let item of Moneda_items" value="{{item.MonedaId}}">{{item.Moneda}}</option>
                 </select>
             </div>
             <div class="col s12 input-field">
                 <input type="text" name="Division" id="Division" [(ngModel)]="Solicitud.Division" #Division="ngModel" required>
                 <label for="Division">Division</label>
             </div>
-            <div class="col s12 input-field">
-                <select name="TipoPago" [(ngModel)]="Solicitud.TipoPago" #TipoPago="ngModel">
-                <option selected *ngFor="let item of TipoPago_items" [value]="item.Id">{{item.GrupoEmpresarial}}</option>
-            </select>
+            <div class="col s12">
                 <label for="TipoPago">TipoPago</label>
+                <select name="TipoPago" [(ngModel)]="Solicitud.TipoPago" #TipoPago="ngModel">
+                <option selected *ngFor="let item of TipoPago_items" [value]="item.Id">{{item.TipoPago}}</option>
+            </select>
             </div>
             <div class="col s12 input-field">
                 <input type="text" name="FinanciamientoImpuestos" id="FinanciamientoImpuestos" [(ngModel)]="Solicitud.FinanciamientoImpuestos" #FinanciamientoImpuestos="ngModel" required>
                 <label for="FinanciamientoImpuestos">Financiamiento Impuestos</label>
             </div>
             <div class="col s12 input-field">
-                <input type="number" name="TiempoCreditoImpuesto" id="TiempoCreditoImpuesto" [(ngModel)]="Solicitud.TiempoCreditoImpuesto" #TiempoCreditoImpuesto="ngModel" required>
+                <input type="number" placeholder="Solicitud.TiempoCreditoImpuesto" name="TiempoCreditoImpuesto" id="TiempoCreditoImpuesto" [(ngModel)]="Solicitud.TiempoCreditoImpuesto" #TiempoCreditoImpuesto="ngModel" required>
                 <label for="TiempoCreditoImpuesto">Tiempo Credito Impuesto</label>
             </div>
 

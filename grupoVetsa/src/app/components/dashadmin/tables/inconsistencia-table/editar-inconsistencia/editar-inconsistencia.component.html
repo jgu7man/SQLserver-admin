@@ -2,8 +2,8 @@
     <div class="row">
 
         <div class="col s6">
+            <input type="date" placeholder="inconsistencia.FechaRecepcion" name="day" id="day" [(ngModel)]="inconsistencia.FechaRecepcion" #FechaRecepcion="ngModel" required>
             <label for="FechaRecepcion">Fecha Recepcion</label>
-            <input type="date" name="day" id="day" [(ngModel)]="inconsistencia.FechaRecepcion" #FechaRecepcion="ngModel" required>
         </div>
 
         <!--Combobox que traera la informacion de la tabla Cliente-->
@@ -13,8 +13,9 @@
                     <option selected *ngFor="let item of Cliente_items" value="{{item.Id}}">{{item.GrupoEmpresarial}}</option>
                 </select>
         </div>
+
         <div class="col s6 input-field">
-            <input type="text" name="HojaRuta" id="HojaRuta" [(ngModel)]="inconsistencia.HojaRuta" #HojaRuta="ngModel" required>
+            <input type="text" placeholder="inconsistencia.HojaRuta" ame="HojaRuta" id="HojaRuta" [(ngModel)]="inconsistencia.HojaRuta" #HojaRuta="ngModel" required>
             <label for="HojaRuta">Hoja de Ruta</label>
         </div>
         <!--Combobox que traera la informacion de la tabla Proveedor-->
@@ -33,7 +34,7 @@
         </div>
 
         <div class="col s6 input-field">
-            <input type="text" name="NumeroDocumento" id="NumeroDocumento" [(ngModel)]="inconsistencia.NumeroDocumento" #NumeroDocumento="ngModel" required>
+            <input type="text" placeholder="inconsistencia.NumeroDocumento" name="NumeroDocumento" id="NumeroDocumento" [(ngModel)]="inconsistencia.NumeroDocumento" #NumeroDocumento="ngModel" required>
             <label for="NumeroDocumento">Numero de Documento</label>
         </div>
 
